@@ -8,9 +8,6 @@ function setup() {
 function draw() {
   noStroke();
   for (var n = 0;n < 5;n++) {
-    for(var n = 2) {
-      fill('red');
-    }
     tekenvierkant();
     translate(95,0);
 }
