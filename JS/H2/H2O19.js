@@ -52,7 +52,7 @@ function draw() {
 }
 
 function tekenRaster() {
-  push();
+  push();ddd
   noFill();
   stroke('grey');
   for (var rij = 0;rij < aantalRijenRaster;rij++) {
