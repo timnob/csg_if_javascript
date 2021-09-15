@@ -1,32 +1,41 @@
-
+var cirkel = {
+  x: 225,
+  y: 225,
+  straal: 75, 
+  
+  teken() {
+    noStroke();
+    fill('red');
+    ellipse(this.x,this.y,this.straal);
+ 
+  },
+  beweeg() {
+    if (keyIsDown(LEFT_ARROW)) {
+      this.x -= 2;
+    }
+    if (keyIsDown(RIGHT_ARROW)) {
+      this.x += 2;
+    }
+    if (keyIsDown(UP_ARROW)) {
+      this.y -= 2;
+    }
+    if (keyIsDown(DOWN_ARROW)) {
+      this.y += 2;
+    }
+  }
+}
 
 function setup() {
   canvas = createCanvas(450,450);
-  background('silver');
+
   canvas.parent('processing');
   //noLoop();
 }
 
 function draw() {
-  noStroke();
-  for (var n = 0; n < 5 ;n++) {
-      if (n == 2) {
-      fill('blue');
-      tekenvierkant();
-      translate(95,0);
-    }
-    else {
-      fill('red');
-      tekenvierkant();
-      translate(95,0);
-    }
+  background('silver');
+    cirkel.teken();
+    cirkel.beweeg();
     
-    
-   
-  }
 }
 
-function tekenvierkant() {
-  rect(0,200,75,75);
-
-}
