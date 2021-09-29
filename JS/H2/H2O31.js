@@ -1,6 +1,3 @@
-var totaal = {
- totaal: dob1.ogen + dob2.ogen + dob3.ogen,
-}
 class dobbelSteen  {
   constructor(x){
     this.x = x;
@@ -11,12 +8,12 @@ class dobbelSteen  {
     this.R= null;
     this.G= null;
     this.B= null;
+   
     
   }
  
   gooi() {
     this.ogen = floor(random(0,6)) + 1;
-
     this.R = round(random(0,255));
     this.G = round(random(0,255));
     this.B = round(random(0,255));
@@ -47,12 +44,14 @@ function setup() {
   colorMode(RGB,255,255,255,1);
   noStroke();
   textFont("Georgia");
-  textSize(80);
+  textSize(50);
   frameRate(10);
   background('lightcyan');
   dob1 = new dobbelSteen(25);
   dob2 = new dobbelSteen(250);
   dob3 = new dobbelSteen(475);
+
+
 }
 
 function draw() {
@@ -64,7 +63,8 @@ function draw() {
     dob1.teken();
     dob2.teken();
     dob3.teken();
-    text("Totaal gegooid: " + this.totaal + " ",30,280);
+    text("Totaal gegooid: " + (dob1.ogen+dob2.ogen+dob3.ogen),20,290);
+    
 
   }
 }

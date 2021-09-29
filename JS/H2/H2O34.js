@@ -91,6 +91,14 @@ class Vijand {
   toon() {
     image(this.sprite,this.x,this.y,raster.celGrootte,raster.celGrootte);
   }
+  wordtGeraakt(vijand) {
+    if (this.x == vijand.x && this.y == vijand.y) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 }
 
 function preload() {
@@ -119,7 +127,7 @@ function setup() {
   alice.stapGrootte = 1*eve.stapGrootte;
   alice.sprite = loadImage("images/sprites/Alice100px/Alice.png");
 
-  bob = new Vijand(600,400);
+  bob = new Vijand(700,200);
   bob.stapGrootte = 1*eve.stapGrootte;
   bob.sprite = loadImage("images/sprites/Bob100px/Bob.png");  
 }
@@ -133,7 +141,9 @@ function draw() {
   eve.toon();
   alice.toon();
   bob.toon();
-  
+  if(alice.wordtGeraakt(bob)){
+    bob.beweeg();
+  }
   if (eve.wordtGeraakt(alice) || eve.wordtGeraakt(bob)) {
     noLoop();
   }
