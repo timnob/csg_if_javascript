@@ -1,49 +1,55 @@
 class cirkel  {
-  constructor(x, y, st, kl){
-  this.x = x;
-  this.y = y;
-  this.straal = st;
-  this.kleur = kl;
+  constructor(){
+  this.x = random(20, 980);
+  this.y = random(20, 730);
+  this.straal = 10;
+  //this.kleur = 'red';
+  this.R = random(0,200);
+  this.G = random(0, 200);
+  this.B = random(0,200);
 }
   teken() {
     noStroke();
-    fill(this.kleur);
+    fill(this.R, this.G, this.B);
     ellipse(this.x,this.y,this.straal);
  
   }
   beweeg() {
     if (keyIsDown(LEFT_ARROW)) {
-      this.x -= 5;
+      this.x -= 15;
     }
     if (keyIsDown(RIGHT_ARROW)) {
-      this.x += 5;
+      this.x += 15;
     }
     if (keyIsDown(UP_ARROW)) {
-      this.y -= 5;
+      this.y -= 15;
     }
     if (keyIsDown(DOWN_ARROW)) {
-      this.y += 5;
+      this.y += 15;
     }
   }
 }
+var cirkels = [];
 
 function setup() {
-  canvas = createCanvas(450,450);
+  canvas = createCanvas(1000,750);
   canvas.parent('processing');
-  cirkel1 = new cirkel(200, 175, 75, 'red');
-  cirkel2 = new cirkel(230, 200, 75, 'blue');
-  cirkel3 = new cirkel(260, 225, 75, 'green');
+  frameRate(60);
+  for (var n = 0;n < 5000;n++) {
+  cirkels.push(new cirkel());  
   //noLoop();
+  }
 }
 
 function draw() {
   background('silver');
-    cirkel1.teken();
-    cirkel1.beweeg();
-    cirkel2.teken();
-    cirkel2.beweeg();
-    cirkel3.teken();
-    cirkel3.beweeg();
-    
+
+  for (var n = 0;n < cirkels.length;n++) {
+    cirkels[n].teken();
+    cirkels[n].beweeg();
+
+
+  }
 }
+
 

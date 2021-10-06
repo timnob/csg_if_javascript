@@ -29,6 +29,7 @@ class Knikker {
 
 var knikkerVerzameling = [];
 
+
 function setup() {
   canvas = createCanvas(1000,300);
   canvas.parent('processing');
@@ -39,6 +40,7 @@ function setup() {
   for (var k = 0; k < 10; k++) {
     knikkerVerzameling.push(new Knikker(random(20,980),random(20,280),'white'));
   }  
+    
 }
 
 function draw() {
@@ -48,8 +50,8 @@ function draw() {
     knikkerVerzameling[i].teken();
   } 
   if (mouseIsPressed) {
-    for (var i = 0; i < knikkerVerzameling.length; i++) {
-      knikkerVerzameling[i].beweeg();
-    }
+    knikkerVerzameling.push(new Knikker(mouseX,mouseY,'dodgerblue'));
+
+    
   }
 }

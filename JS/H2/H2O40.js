@@ -56,8 +56,14 @@ class Jos {
   }
   
   staatOp(bommenLijst) {
-
-    return this.staOpBom;
+    if (this.x == Bom.x && this.y == Bom.y) {
+      return true;
+    }
+    else {
+      return false;
+      //return this.staOpBom;
+    }
+    
   }  
   
   toon() {
@@ -82,7 +88,9 @@ function setup() {
   raster = new Raster(6,9);
   
   raster.berekenCelGrootte();
-  bom1 = new Bom();
+  for (var b = 0; b < 10; b++) {
+    bommenArray.push(new Bom());
+  }
   
   eve = new Jos();
   eve.stapGrootte=1*raster.celGrootte;
@@ -103,7 +111,10 @@ function setup() {
 function draw() {
   background(brug);
   raster.teken();
-  bom1.toon();
+  for (var a = 0; a < bommenArray.length; a++) {
+    bommenArray[a].toon();
+  }
+    
 
   if (eve.aanDeBeurt) {
     eve.beweeg();
