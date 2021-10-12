@@ -1,20 +1,20 @@
 class Bal {
   constructor(x,y) {
-  this.diameter = 40;
-  this.straal = 20;
+  this.diameter = 10;
+  this.straal = 10;
   this.x = x;
   this.y = y;
   this.R = random(0,255);
   this.G = random(0,255);
   this.B = random(0,255);
-  this.alpha = 0.8;
+  this.alpha = 0.7;
   this.snelheid = 0;
   this.aantalKerenGestuiterd = 0;
   this.geraakt = false;
   }
   
   beweeg() {
-    this.snelheid+=9.81/15;
+    this.snelheid+=9.81/100;
     this.y+=this.snelheid;
     if (this.y>=canvas.height-this.straal) {
       this.snelheid*=-1;

@@ -132,7 +132,7 @@ function setup() {
 
   canvas = createCanvas(700,400);
   canvas.parent('processing');
-  speler = new Speler('Vincent');
+  speler = new Speler('Tim');
   spel = new Galgje(speler,beeldjes);
   spel.teken();
 }
