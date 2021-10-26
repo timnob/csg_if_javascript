@@ -8,7 +8,7 @@ class Racket {
   constructor() {
     this.breedte = 150;
     this.hoogte = 20;
-    this.snelheid = 30;
+    this.snelheid = 5;
     this.x = canvas.width / 2 - 0.5 * this.breedte;
     this.y = canvas.height - 2 * this.hoogte;
     this.kleur = 255;
@@ -49,7 +49,7 @@ class Racket {
 
 class Tennisbal {
   constructor() {
-    this.diameter = 20;
+    this.diameter = 100;
     this.straal = this.diameter/2;
     this.x = random(2*this.straal,canvas.width - 2*this.straal);
     this.y = this.straal;
@@ -63,9 +63,10 @@ class Tennisbal {
     if (this.x<this.straal || this.x>canvas.width-this.straal) {
       this.snelheidX*=-1;
     }
-    if (this.y<this.straal || this.y>canvas.height-this.straal) {
+    if (this.y<this.straal) {
       this.snelheidY*=-1;
     }    
+  
   }
   
   reageerOpRacket(r) {
@@ -104,13 +105,26 @@ class Tennis {
     text("Dit is een simpel tennis-spel. Bestuur je racket met de a (links) en de d (rechts).\n\nDruk op de spatiebalk om het spel te starten.",0,0,canvas.width,canvas.height);
     pop();
   }
+
+  eindScherm() {
+    if(this.y > canvas.height-this.straal){
+    push();
+    textAlign(CENTER,CENTER);
+    fill(0);
+    text("Helaas, je hebt verloren!",0,0,canvas.width,canvas.height);
+    pop();
+    }
+  }
   
   update() {
+    
     if (spel.actief) {
+      this.r.beweeg();
       if (this.r.raaktBal(this.b)) {
         this.b.reageerOpRacket(this.r);
       }
       this.b.beweeg();
+
     }
   }
   
@@ -153,9 +167,7 @@ function keyTyped() {
   if (!spel.actief && keyCode == 32) {
     spel.actief = true;
   }
-  else {
-    spel.r.beweeg();
-  }
+    
 }
 
 /*  **********************************************************
