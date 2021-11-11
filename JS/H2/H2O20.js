@@ -28,9 +28,15 @@ var jos = {
   stapGrootte: null,
 
   beweeg() {
-    if (keyIsDown(LEFT_ARROW)) {
-      this.x -= this.stapGrootte;
-      this.frameNummer = 2;
+    if (mouseIsPressed) {
+      
+        this.frameNummer = 2;
+      }
+      else {
+        this.frameNummer = 1;
+      
+      
+    
     }
     if (keyIsDown(RIGHT_ARROW)) {
       this.x += this.stapGrootte;
