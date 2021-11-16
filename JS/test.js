@@ -1,6 +1,6 @@
 class cirkel  {
-  constructor(){
-  this.x = random(20, 980);
+  constructor(k){
+  this.x = k;
   this.y = random(20, 730);
   this.straal = 10;
   //this.kleur = 'red';
@@ -35,8 +35,8 @@ function setup() {
   canvas = createCanvas(1000,750);
   canvas.parent('processing');
   frameRate(60);
-  for (var n = 0;n < 5000;n++) {
-  cirkels.push(new cirkel());  
+  for (var n = 0;n < 3;n++) {
+  cirkels.push(new cirkel(20));  
   //noLoop();
   }
 }
