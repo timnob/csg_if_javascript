@@ -1,11 +1,11 @@
 function preload() {
 
-    achtergrond = loadImage("infspel2.png");
+    achtergrond = loadImage("road.jpg");
 
   }
 function setup(){
 
-    canvas = createCanvas(1500,800);  
+    canvas = createCanvas(windowWidth,windowHeight);  
     textAlign(CENTER,CENTER);  
 
     spel = new stoplicht();
@@ -13,7 +13,6 @@ function setup(){
     motor = new motor();
 }
 function draw() {
-
    background(achtergrond);
     spel.teken();
     auto.teken();

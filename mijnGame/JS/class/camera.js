@@ -1,7 +1,7 @@
-class camera {
-    
+/*class camera {
+    this.x
 
     teken() {
         
     }
-}
+}*/

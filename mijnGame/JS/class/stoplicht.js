@@ -1,6 +1,6 @@
 class stoplicht {
     constructor(){
-    this.timer = round(random(4,7));
+    this.timer = round(random(2,7));
     this.aan = false;
     this.rood = false;
     }

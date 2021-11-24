@@ -1,12 +1,12 @@
 class auto{
     constructor(){
-        this.breedte = 70;
+        this.breedte = 120;
         this.hoogte = 70;
         this.y = 280;
         this.x =10;
         this.kleur = 'red';
         this.gewonnen = false;
-        this.stapGrootte = 2;
+        this.stapGrootte = 20;
     }
 
     beweeg() {
@@ -22,6 +22,8 @@ class auto{
         if (keyIsDown(DOWN_ARROW)) {
           this.y += this.stapGrootte;
       }
+      this.x = constrain(this.x,0,canvas.width);
+      this.y = constrain(this.y,62,910 - this.hoogte);
     }
 
     teken(){
