@@ -1,7 +1,8 @@
 class stoplicht {
     constructor(){
-    this.timer = 2;
+    this.timer = round(random(4,7));
     this.aan = false;
+    this.rood = false;
     }
                     
     
@@ -9,12 +10,32 @@ class stoplicht {
         push();
         fill('black');
         rect(470,0,60,140);
-        fill('green');
-        ellipse(500,105,40);
-        /*if (frameCount % 60 == 0 && this.timer > 0) {
-          this.timer--;
+     
+
+        if (!this.rood) {
+          
+            fill('green');
+            ellipse(500,105,40);
+            // this.timer = roudrandom(2,5);
+            this.rood = false;
+        } else {
+            fill('red');
+            ellipse(500,55,40);
+            // this.timer = round(random(200,500));
+            this.rood = true;
+          
         }
-        if (this.timer == 0) {
+        
+        if (frameCount % 60 == 0 && this.timer >= 0) {
+          this.timer--
+        }
+
+        if (frameCount % 60 == 0 &&this.timer == 0) {
+          this.timer = round(random(4,7));
+          this.rood = !this.rood;
+        }
+
+        /*if (this.timer == 0) {
           fill('red');
           ellipse(500,45,40);
           this.tijd = random(2,5);
@@ -22,23 +43,28 @@ class stoplicht {
         else{
           fill('green');
           ellipse(500,105,40);
+        }
+        if (this.tijd == 0){
+          fill('green');
+          ellipse(500,45,40);
+          this.timer = random(2,5);
         }*/
-        
        
           
         
        
 }
-stoplichtTel() {
+}
+/*stoplichtTel() {
   if (frameCount % 60 == 0 && this.timer > 0) {
     this.timer--;
   }
-  if(this.aan == true && this.timer == 0){
+  if(this.aan == false && this.timer == 0){
  
   fill('red');
   ellipse(500,45,40);
   this.timer = random(2, 4);
-  return false;  
+  return true;  
  
   }
   else {
@@ -47,5 +73,4 @@ stoplichtTel() {
           return true;
   }
 }
-}
-
+}*/

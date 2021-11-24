@@ -1,10 +1,8 @@
 class spel{
-    constructor(){
-        this.speler1 = new Speler(1);
-        this.speler2 = new Speler(2);
-    }
-}
-function setup(){
     stoplicht = new stoplicht();
-    spelers = new spelers();
+    speler = new speler();
+    }
+function setup(){
+    stoplicht.teken();
+    speler.teken();
 }

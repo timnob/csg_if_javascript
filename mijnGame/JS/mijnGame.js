@@ -5,17 +5,19 @@ function preload() {
   }
 function setup(){
 
-    canvas = createCanvas(900,800);  
+    canvas = createCanvas(1500,800);  
     textAlign(CENTER,CENTER);  
 
-
     spel = new stoplicht();
-    //spelers = new spelers();
-
+    auto = new auto();
+    motor = new motor();
 }
 function draw() {
 
    background(achtergrond);
     spel.teken();
-    //spelers.teken();
+    auto.teken();
+    auto.beweeg();
+    motor.teken();
+    motor.beweeg();
   }
