@@ -6,7 +6,12 @@ class auto{
         this.x =10;
         this.kleur = 'red';
         this.gewonnen = false;
-        this.stapGrootte = 20;
+        this.stapGrootte = 10;
+    }
+    wordJeGeraakt(motor) {
+      if (motor.x >= this.x - motor.breedte && motor.x <= this.x + this.breedte && motor.y > this.y - motor.hoogte && motor.y < this.y + this.hoogte) {
+        this.geraakt=true;
+      }
     }
 
     beweeg() {
@@ -32,6 +37,11 @@ class auto{
         fill(this.kleur);
         rect(this.x,this.y,this.breedte,this.hoogte);
         pop();
+        if (this.geraakt){
+          this.x = 10;
+          this.y = 280;
+          this.geraakt = false;
+        }
       }
 
 }

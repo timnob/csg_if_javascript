@@ -3,14 +3,14 @@ class motor{
         this.breedte = 120;
         this.hoogte = 70;
         this.y = 500;
-        this.x =10;
-        this.kleur = 'red';
+        this.x = 10;
+        this.kleur = 'blue';
         this.gewonnen = false;
         this.stapGrootte = 10;
         this.geraakt = false ;
     }
     wordJeGeraakt(auto) {
-      if (auto.x >= this.x && auto.x <= this.x + this.breedte && auto.y >= this.y && auto.y <= this.y + this.hoogte) {
+      if (auto.x >= this.x - auto.breedte && auto.x <= this.x + this.breedte && auto.y > this.y - auto.hoogte && auto.y < this.y + this.hoogte) {
         this.geraakt=true;
       }
     }
@@ -40,7 +40,9 @@ class motor{
         rect(this.x,this.y,this.breedte,this.hoogte);
         pop();
         if (this.geraakt){
-          this.kleur= 'white';
+          this.x = 10;
+          this.y = 500;
+          this.geraakt = false;
         }
 
       }
