@@ -1,8 +1,8 @@
 class motor{
     constructor(){
-        this.breedte = 120;
-        this.hoogte = 70;
-        this.y = 500;
+        this.breedte = 200 ;
+        this.hoogte = 100;
+        this.y = 650;
         this.x = 10;
         this.kleur = 'blue';
         this.gewonnen = false;
@@ -37,7 +37,8 @@ class motor{
         push();
         noStroke();
         fill(this.kleur);
-        rect(this.x,this.y,this.breedte,this.hoogte);
+        image(motorplaatje,this.x,this.y,this.breedte,this.hoogte);
+        // rect(this.x,this.y,this.breedte,this.hoogte);
         pop();
         if (this.geraakt){
           this.x = 10;

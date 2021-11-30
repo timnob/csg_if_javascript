@@ -1,6 +1,7 @@
 function preload() {
-
+    motorplaatje = loadImage("motor.png");
     achtergrond = loadImage("road.jpg");
+    autoplaatje = loadImage("auto.png");
 
   }
 function setup(){
@@ -8,14 +9,14 @@ function setup(){
     canvas = createCanvas(windowWidth,windowHeight);  
     textAlign(CENTER,CENTER);  
 
-    //spel = new stoplicht();
+    stoplicht= new stoplicht();
     auto = new auto();
     motor = new motor();
     camera = new camera();
 }
 function draw() {
-   background(achtergrond);
-    //spel.teken();
+    background(achtergrond);
+    stoplicht.teken();
     auto.teken();
     auto.beweeg();
     auto.wordJeGeraakt(motor);

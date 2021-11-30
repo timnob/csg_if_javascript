@@ -1,24 +1,48 @@
 class camera {
-    constructor(x,y,h,b,k){
+    constructor(x,y,h,b){
     this.x = x;
     this.y = y;
     this.hoogte = h;
     this.breedte = b;
-    this.color = k;
-    //this.draai = false;
-    //this.kijken = false;
-    //this.tijd = roundrandom(2,5);
+    this.kleur = 'black';
+    this.draai = false;
+    
+    this.tijd = round(random(2,5));
 }
 
 
 teken() {
     push();
-    rect(1750,450,110,60, 'red');
-    rect(1728,470,30,20);
-}
 
-draaien(){
-    
+    if (frameCount % 60 == 0 && this.tijd >= 0) {
+        this.tijd--
+      }
 
+      if (frameCount % 60 == 0 &&this.tijd == 0) {
+        this.tijd = round(random(4,7));
+        this.draai = !this.draai;
+      }
+      if (!this.draai) {
+
+        fill(this.kleur);
+        rect(1750,450,110,60);
+        rect(1855,470,30,20);
+        // this.timer = roudrandom(2,5);
+        this.draai = false;
+
+    } else {
+
+        fill(this.kleur);
+        rect(1750,450,110,60);
+        rect(1728,470,30,20);
+        // this.timer = round(random(200,500));
+        this.rood = true;
+      
+    }
+    if(this.draai == true && stoplicht.rood == true && (keyIsDown(65) || keyIsDown(68) || keyIsDown(87) || keyIsDown(83) )){
+        motor.x = 0;
+        motor.y = 500;
+
+    }
 }
 }

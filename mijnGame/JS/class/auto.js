@@ -1,8 +1,8 @@
 class auto{
     constructor(){
-        this.breedte = 120;
-        this.hoogte = 70;
-        this.y = 280;
+        this.breedte = 200;
+        this.hoogte = 100;
+        this.y = 200;
         this.x =10;
         this.kleur = 'red';
         this.gewonnen = false;
@@ -35,7 +35,8 @@ class auto{
         push();
         noStroke();
         fill(this.kleur);
-        rect(this.x,this.y,this.breedte,this.hoogte);
+        image(autoplaatje,this.x,this.y,this.breedte,this.hoogte );
+        // rect(this.x,this.y,this.breedte,this.hoogte);
         pop();
         if (this.geraakt){
           this.x = 10;
