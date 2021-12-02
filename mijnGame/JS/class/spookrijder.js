@@ -11,19 +11,49 @@ class spookrijder{
         this.klok = round(random(1,2));
         this.rijder = [];
 
+
     }
     teken(){
         push();
         noStroke();
         image(spookrijderplaatje,this.x,this.y,this.breedte,this.hoogte);
         pop();
+    }
+    maakrijder(){
+        if (frameCount % 60 == 0 && this.klok >= 0) {
+            this.klok--
+          }
+    
+    
+          if (frameCount % 60 == 0 && this.klok == 0) {
+              for(var s = 0;s < 3 ;s++){
+                 this.rijder.push(new spookrijder);
+            //       this.rijder[s].beweeg();
+            //       this.rijder[s].teken();
+            //       this.klok = round(random(2,5));
+    
+            //   }
+             
+    }
+    }
+}
+
+
+   
             
-        }
+        
 
 beweeg(){
     this.x += -this.snelheid;
     this.y = constrain(this.y,62,910 - this.hoogte);
 }
-    }  
-
     
+update(){
+
+        for(var s = 0;s < this.rijder.length;s++){
+            this.rijder[s].beweeg();
+            this.klok = round(random(2,5));
+    
+             }
+}
+}

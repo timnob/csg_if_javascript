@@ -6,7 +6,7 @@ class motor{
         this.x = 10;
         this.kleur = 'blue';
         this.gewonnen = false;
-        this.rijSnelheid = 2,5;
+        this.rijSnelheid = 5;
         this.geraakt = false ;
     }
     wordJeGeraakt(auto) {

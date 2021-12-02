@@ -23,7 +23,7 @@ class stoplicht {
             ellipse(500,55,40);
             // this.timer = round(random(200,500));
             this.rood = true;
-          
+
         }
         
         if (frameCount % 60 == 0 && this.timer >= 0) {
