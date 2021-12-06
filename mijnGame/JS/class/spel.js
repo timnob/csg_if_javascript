@@ -1,8 +1,10 @@
+var settings = [40, 0, 3];
+
 class spel{
     constructor(){
         this.speler1 = new motor();
         this.speler2 = new auto();
-        this.level = null;
+        this.level = 0;
         this.afgelopen = null;
         this.gewonnen = null;  
         this.maxLevel = 4;      
@@ -13,18 +15,15 @@ class spel{
 
         //this.tijdloper = new Tijdloper(settings[3]);
     }
-
     nieuwSpel() {
-        this.gewonnen = false;
-        this.afgelopen = false;
-        this.level = 0;
-        this.nieuwLevel();
-        this.actief = false;
+      if (this.gewonnen) {
+          this.level = -1;
+          this.gewonnen = false;        
       }
-      nieuwLevel() {
-        this.timer.reset();  
-        this.level++;
-      }
+      this.Nplatforms = this.maxPlatforms + 1 - this.level;
+      this.actief = false;
+      this.nieuwLevel();
+    }
 
 
 update(){

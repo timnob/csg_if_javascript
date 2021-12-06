@@ -6,7 +6,7 @@ class motor{
         this.x = 10;
         this.kleur = 'blue';
         this.gewonnen = false;
-        this.rijSnelheid = 5;
+        this.rijSnelheid = 10;
         this.geraakt = false ;
     }
     wordJeGeraakt(auto) {
@@ -19,6 +19,7 @@ class motor{
         this.geraakt=true;
       }
     }
+
 
     beweeg() {
         if (keyIsDown(65)) {

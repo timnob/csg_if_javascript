@@ -11,6 +11,8 @@ class camera {
 
 
 teken() {
+  fill('white')
+  rect(1800,63,10,845);
     push();
 
 
@@ -38,12 +40,12 @@ teken() {
         // this.timer = round(random(200,500));
         this.draai= true;
     }
-    if(this.draai == true && stoplicht.rood == true && (keyIsDown(65) || keyIsDown(68) || keyIsDown(87) || keyIsDown(83) )){
+    if(motor.x < 1800 && this.draai == true && stoplicht.rood == true && (keyIsDown(65) || keyIsDown(68) || keyIsDown(87) || keyIsDown(83) )){
         motor.x = 0;
         motor.y = 650;
 
     }
-    if(this.draai == true && stoplicht.rood == true && (keyIsDown(LEFT_ARROW) || keyIsDown(RIGHT_ARROW) || keyIsDown(UP_ARROW) || keyIsDown(DOWN_ARROW))){
+    if(auto.x < 1800 &&this.draai == true && stoplicht.rood == true && (keyIsDown(LEFT_ARROW) || keyIsDown(RIGHT_ARROW) || keyIsDown(UP_ARROW) || keyIsDown(DOWN_ARROW))){
         auto.x = 0;
         auto.y = 280;
 

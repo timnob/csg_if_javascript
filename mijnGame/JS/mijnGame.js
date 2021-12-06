@@ -2,7 +2,7 @@ function preload() {
     motorplaatje = loadImage("motor.png");
     achtergrond = loadImage("road.jpg");
     autoplaatje = loadImage("auto.png");
-    spookrijderplaatje = loadImage("spookrijder.png");
+   // spookrijderplaatje = loadImage("spookrijder.png");
 
   }
 
@@ -13,12 +13,11 @@ function setup(){
  
 
     spel = new spel();
-
     stoplicht= new stoplicht();
     auto = new auto();
     motor = new motor();
     camera = new camera();
-    spookrijder = new spookrijder();
+    //spookrijder = new spookrijder();
 }
 function draw() {
   fill('red');
@@ -34,8 +33,8 @@ function draw() {
     motor.wordJeGeraakt(auto);
     motor.wordJeGeraakt(spookrijder);
     camera.teken();
-    spookrijder.teken();
-    spookrijder.beweeg();
+    //spookrijder.teken();
+    //spookrijder.beweeg();
     // spel.teken();
 
     
@@ -53,19 +52,19 @@ function draw() {
     }
   }
 
-  function keyTyped() {
-    if (!spel.actief && !spel.levelGehaald) {
-      // begin spel
-      spel.nieuwSpel();
-      spel.actief = true;
-    }
-    if ((spel.levelGehaald && !spel.afgelopen) && keyCode == ENTER) {
-      // level gehaald tijdens het spel
-      spel.nieuwLevel();
-    }
-    if ((spel.afgelopen)) {
-      // einde spel
-      spel.nieuwSpel();
-    }  
-  }
+  // function keyTyped() {
+  //   if (!spel.actief && !spel.levelGehaald) {
+  //     // begin spel
+  //     spel.nieuwSpel();
+  //     spel.actief = true;
+  //   }
+  //   if ((spel.levelGehaald && !spel.afgelopen) && keyCode == ENTER) {
+  //     // level gehaald tijdens het spel
+  //     spel.nieuwLevel();
+  //   }
+  //   if ((spel.afgelopen)) {
+  //     // einde spel
+  //     spel.nieuwSpel();
+  //   }  
+  // }
   
