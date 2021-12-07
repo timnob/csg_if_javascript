@@ -1,82 +1,107 @@
-var settings = [40, 0, 3];
-
 class spel{
-    constructor(){
-        this.speler1 = new motor();
-        this.speler2 = new auto();
-        this.level = 0;
-        this.afgelopen = null;
-        this.gewonnen = null;  
-        this.maxLevel = 4;      
-        this.klok = round(random(1,2));
-        this.actief = false;
-        
-        this.tijdloper = 60; 
-
-        //this.tijdloper = new Tijdloper(settings[3]);
-    }
-    nieuwSpel() {
-      if (this.gewonnen) {
-          this.level = -1;
-          this.gewonnen = false;        
-      }
-      this.Nplatforms = this.maxPlatforms + 1 - this.level;
-      this.actief = false;
-      this.nieuwLevel();
-    }
-
-
-update(){
-  if (this.actief && !this.levelGehaald) {
-    if (this.speler1.x > canvas.width - this.speler1.l) {
-      this.levelGehaald = true;
-      if (this.level == this.maxLevel) {
-          this.afgelopen = true;
-          this.gewonnen = true;
-          this.actief = false;
-      }
+    constructor() {
+    this.level = null;
+    this.maxLevel = 3;
+    this.actief = null;
+    this.levelGehaald = null;
+    this.afgelopen = null;
+    this.gewonnen = null;
+    this.alfa = 0.5;
   }
-  if (this.speler2.x > canvas.width - this.speler2.l) {
-    this.levelGehaald = true;
-    if (this.level == this.maxLevel) {
-        this.afgelopen = true;
-        this.gewonnen = true;
-        this.actief = false;
+  
+  nieuwSpel() {
+    this.level = 0;
+    this.actief = false;
+    this.gewonnen = false;
+    this.afgelopen = false;
+    this.nieuwLevel();
+  }
+
+  nieuwLevel() {
+    this.level++;
+    this.levelGehaald = false;
+  }
+
+  update() {
+    this.alfa += random(-3,3) / 100;
+    if (this.alfa <= 0 || this.alfa >=1) {
+        this.alfa = 0.5;
     }
-}
-}
-}
-
-
-nieuwLevel() {
-  this.level++;
-
-  if (this.level>this.maxLevel) {
-      this.afgelopen = true;
-      this.gewonnen = true;
-      this.actief = false;
   }
-  else {
-      this.levelGehaald = false;
-  }
-}
 
-update() {
-  if (this.actief && !this.levelGehaald) {
-      if (this.speler1.x > canvas.width - this.speler1.l) {
-          this.levelGehaald = true;
-          if (this.level == this.maxLevel) {
-              this.afgelopen = true;
-              this.gewonnen = true;
-              this.actief = false;
-          }
-      }
-      if (this.speler2.x > canvas.width - this.speler2.l) {
-        this.levelGehaald = true;
-        if (this.level == this.maxLevel) {
-            this.afgelopen = true;
-            this.gewonnen = true;
-            this.actief = false;
+   tekenAnimatie() {
+    push();
+    noStroke();
+    fill(120,130,150,this.alfa);
+    rect(10,10,880,580);
+    pop();
+  }
+
+  tekenScorebord() {
+    push();
+    fill(0,0,0,.8);
+    noStroke();
+    textSize(30);
+    var marge = 100;
+    rect(marge,marge,canvas.width - 2 * marge,canvas.height - 2 * marge);
+    fill(255);
+    text(" Dit is Level "+this.level+"\nHet spel is actief.\n\nKlik om het level te \"halen\".",marge,marge,canvas.width - 2 * marge,canvas.height - 2 * marge);   
+    pop();
+  }
+  
+  beginScherm() {
+    push();
+    noFill();
+    stroke(150,200,255,.7);
+    strokeWeight(5);
+    textSize(140);
+    text(" Spel MET Levels",0,0,canvas.width,canvas.height * 2 / 3);
+    textSize(32);
+    strokeWeight(2);
+    fill(0,0,0,0.75);
+    text("Dit voorbeeld laat zien hoe je een spel\nmet levels zou kunnen inrichten.\n\nDruk op een toets om te beginnen.\n",0,canvas.height * 1 / 2,canvas.width,canvas.height * 1 / 3);
+    pop();
+  }
+
+  levelScherm() {
+    push();
+    fill(50,80,80,.5);
+    stroke(150,200,255,.7);
+    strokeWeight(3);
+    text('Gefeliciteerd!\nJe hebt level '+this.level+' gehaald!\n\nDruk ENTER om naar level '+(this.level+1)+' te gaan.',0,0,canvas.width,canvas.height / 2);
+    pop();
+  }   
+
+  eindScherm() {
+    var tekst = 'Je hebt het gehaald.';
+    if (this.gewonnen) {
+      tekst = 'Gefeliciteerd!';
+    }
+    push();
+    fill(0);
+    stroke(100,75,50,.8);
+    strokeWeight(3);
+    text(tekst + '\n\nDruk SPATIE voor nieuw spel.',0,0,canvas.width,canvas.height);
+    pop();
+  }    
+  
+  teken() {
+    background(achtergrond);
+    if (!this.actief) {
+        if (this.afgelopen) {
+            this.eindScherm();
+        }
+        else {
+            this.beginScherm();
+        }
+    }
+    else {
+        if (this.levelGehaald) {
+            this.levelScherm();
+        }
+        else {
+            this.tekenScorebord();
+            this.tekenAnimatie();
         }
     }
   }
@@ -84,16 +109,169 @@ update() {
 
 
 
-tijdloper(){
-  fill('black');
-  text("tijd:" + this.tijdloper+ 100,240);
-  if (frameCount % 60 == 0 && this.tijdloper >= 0) {
-    this.tijdloper--
-  }
-  if (frameCount % 60 == 0 && this.tijdloper == 0) {
-    this.eindScherm();
-  }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//     constructor(settings){
+//       this.settings = settings;
+//         this.speler1 = new motor();
+//         this.speler2 = new auto();
+//         this.level = 0;
+//         this.afgelopen = null;
+//         this.gewonnen = null;  
+//         //this.maxLevel = this.settings[2];      
+//         this.actief = false;
+//         // this.tijdloper = this.settings[1]; 
+//         this.rijder = null;
+
+//         //this.tijdloper = new Tijdloper(settings[3]);
+//     }
+//     nieuwSpel() {
+//       this.speler1.gewonnen = false;
+//       this.speler2.gewonnen = false;
+//       this.afgelopen = false;
+//       if (this.afgelopen) {
+//         this.level = 0 ;
+//         this.afgelopen = false;
+        
+//     }
+//       if (this.gewonnen) {
+//           this.level =  -1;
+//           this.gewonnen = false;        
+//       }
+//       this.actief = false;
+//       this.nieuwLevel();
+//     }
+
+// nieuwLevel() {
+//   this.level ++;
+//   this.rijder = [];
+//   this.Nrijder = this.rijder - 2 *(this.level - 1);
+//   this.rijder.push(new spookrijder);
+//   for(var s = 0;s < this.Nrijder ;s++){
+//     this.rijder.push(new spookrijder);
+//   }
+//     if (this.level> this.maxLevel) {
+//       this.afgelopen = true;
+//       this.gewonnen = true;
+//       this.actief = false;
+//   }
+//   else {
+//       this.levelGehaald = false;
+//   }
+// }
+  
+// update(){
+//   if (this.actief && !this.levelGehaald) {
+//     if (this.speler1.x > canvas.width - 300) {
+//       this.levelGehaald = true;
+//       if (this.speler2.x > canvas.width - 300) {
+//         this.levelGehaald = true;
+//       if (this.level == this.maxLevel) {
+//           this.afgelopen = true;
+//           this.gewonnen = true;
+//           this.actief = false;
+//       }
+//   }
+// }
+//   if (this.speler2.x > canvas.width - 300) {
+//     this.levelGehaald = true;
+//     if (this.level == this.maxLevel) {
+//         this.afgelopen = true;
+//         this.gewonnen = true;
+//         this.actief = false;
+//     }
+// }
+
+// }
+// }
+// fun
+
+
+
+// tijdloper(){
+//   fill('black');
+//   text("tijd:" + this.tijdloper+ 100,240);
+//   if (frameCount % 60 == 0 && this.tijdloper >= 0) {
+//     this.tijdloper--
+//   }
+//   if (frameCount % 60 == 0 && this.tijdloper == 0) {
+//     this.eindScherm();
+//   }
+// }
 
 
 
@@ -133,7 +311,6 @@ tijdloper(){
 //     fill(0);
 //     text(tekst,0,0,canvas.width,canvas.height);
 //     pop();
-//     this.tekenNiveauSpeler();
 //   }
 
 //   levelScherm() {
@@ -145,22 +322,47 @@ tijdloper(){
 //     text('Gefeliciteerd!\nJe hebt level '+this.level+' gehaald!\n\nDruk ENTER om naar level '+(this.level+1)+' te gaan.',0,0,canvas.width,canvas.height / 2);
 //     pop();
 //   }   
-  teken() {
-    if (!this.actief) {
-      this.beginScherm();
-    }
-    else {
-      if (this.afgelopen) {
-        this.eindScherm();
-      }
-        if (this.levelGehaald) {
-            this.levelScherm();
-        }
-      else {
-        background(achtergrond);
-      }
-      
-    }
-    
-  }
-}
+
+//   // teken() {
+//   //   background(achtergrond);
+//   //   if (!this.actief) {
+//   //       if (this.afgelopen) {
+//   //           this.eindScherm();
+//   //       }
+//   //       else {
+//   //           this.beginScherm();
+//   //       }
+//   //   }
+//   //   else {
+//   //       if (this.levelGehaald) {
+//   //           this.levelScherm();
+//   //       }
+//   //       else {
+//   //         this.speler1.teken;
+//   //         this.speler2.teken;
+//   //       }
+//   //           this.tekenScorebord();
+//   //       }
+//   //     }
+//   //   }
+//   // }
+//   teken() {
+//     background(achtergrond);
+//     if (!this.actief) {
+//       this.beginScherm();
+//       spel.actief = true;
+//     }
+//     else {
+//       if (this.afgelopen) {
+//         this.eindScherm();
+//       }
+//         if (this.levelGehaald) {
+//             this.levelScherm();
+//         }
+//       else {
+//         this.speler1.teken;
+//         this.speler2.teken;
+//       }
+//     }
+//     }
+//   }
