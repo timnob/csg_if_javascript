@@ -1,7 +1,7 @@
 class spel{
     constructor() {
     this.level = 0;
-    this.maxLevel = 3;
+    this.maxLevel = 4;
     this.actief = false;
     this.levelGehaald = null;
     this.afgelopen = null;
@@ -27,11 +27,11 @@ class spel{
   this.speler1.y = 200;
   this.speler2.x = 10;
   this.speler2.y = 650;
-  this.rijder.push(new spookrijder);
-  for(var s = 0;s < this.Nrijder ;s++){
-    this.rijder.push(new spookrijder);
-  }
-    if (this.level> this.maxLevel) {
+  // this.rijder.push(new spookrijder);
+  // for(var s = 0;s < this.Nrijder ;s++){
+  //   this.rijder.push(new spookrijder);
+  // }
+    if (this.level > this.maxLevel) {
       this.afgelopen = true;
       this.gewonnen = true;
       this.actief = false;
@@ -43,19 +43,32 @@ class spel{
 
  update(){
   if (this.actief && !this.levelGehaald) {
-    if (this.speler1.x > canvas.width - 300) {
+    if (this.speler1.x >= canvas.width) {
       this.levelGehaald = true;
-      if (this.speler2.x > canvas.width - 300) {
+    }
+      if (this.speler2.x >= canvas.width) {
         this.levelGehaald = true;
+      }
       if (this.level == this.maxLevel) {
           this.afgelopen = true;
           this.gewonnen = true;
           this.actief = false;
       }
   }
-}
+
+  if(motor.x < 1800 && this.draai == true && stoplicht.rood == true && (keyIsDown(65) || keyIsDown(68) || keyIsDown(87) || keyIsDown(83) )){
+    motor.x = 0;
+    motor.y = 650;
 
 }
+if(auto.x < 1800 && this.draai == true && stoplicht.rood == true && (keyIsDown(LEFT_ARROW) || keyIsDown(RIGHT_ARROW) || keyIsDown(UP_ARROW) || keyIsDown(DOWN_ARROW))){
+    auto.x = 0;
+    auto.y = 280;
+
+}
+
+
+
 }
 
 
@@ -64,7 +77,7 @@ class spel{
     noStroke();
     textSize(30);
     fill(255);
-    text("Level "+this.level+"",100,100,canvas.width - 2 * 100,canvas.height - 2 *10);   
+    text("Level "+this.level+"",100,0,canvas.width - 2 * 100, canvas.height - 910);   
     pop();
   }
   
@@ -72,14 +85,14 @@ class spel{
     push();
     fill('black');
     noFill();
-
+    stroke(150,200,255,.7);
     strokeWeight(5);
     textSize(140);
-    text(" Spel MET Levels",0,0,canvas.width,canvas.height * 2 / 3);
+    text("Red light, Green light",0,0,canvas.width,canvas.height * 2 / 3);
     textSize(32);
     strokeWeight(2);
     fill(0,0,0,0.75);
-    text("Dit voorbeeld laat zien hoe je een spel\nmet levels zou kunnen inrichten.\n\nDruk op een toets om te beginnen.\n",0,canvas.height * 1 / 2,canvas.width,canvas.height * 1 / 3);
+    text("Probeer aan de overkant de komen binnen de tijd! \n Maar de camera mag niet zien dat je door rood rijd. \n\nKlik om te starten\n",0,canvas.height * 1 / 2,canvas.width,canvas.height * 1 / 3);
     pop();
   }
 
@@ -101,7 +114,7 @@ class spel{
     fill(0);
     stroke(100,75,50,.8);
     strokeWeight(3);
-    text(tekst + '\n\nDruk SPATIE voor nieuw spel.',0,0,canvas.width,canvas.height);
+    text(tekst + '\n\nDruk ENTER voor nieuw spel.',0,0,canvas.width,canvas.height);
     pop();
   }    
   
@@ -120,17 +133,19 @@ class spel{
             this.levelScherm();
         }
         else {
+          // auto.wordJeGeraakt(motor);
+          // auto.wordJeGeraakt(spookrijder);
+          // motor.wordJeGeraakt(auto);
+          // motor.wordJeGeraakt(spookrijder);
           this.speler2.teken();
-          this.speler1.beweeg();
+          this.speler2.beweeg();
           this.speler1.teken();
           this.speler1.beweeg();
+          spookrijder.teken();
+          spookrijder.beweeg();
           stoplicht.teken();
-          auto.wordJeGeraakt(motor);
-          auto.wordJeGeraakt(spookrijder);
-          motor.wordJeGeraakt(auto);
-          motor.wordJeGeraakt(spookrijder);
           camera.teken();
-            this.tekenScorebord();
+          this.tekenScorebord();
             
         }
     }
