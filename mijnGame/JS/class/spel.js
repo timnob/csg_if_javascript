@@ -5,70 +5,92 @@ class spel{
     this.actief = false;
     this.levelGehaald = null;
     this.afgelopen = null;
-    this.Nrijder = false;
-    this.gewonnen = null;
     this.speler1 = new motor();
     this.speler2 = new auto();
+    this.speler2.gewonnen = null;
+    this.speler1.gewonnen = null;
+    this.klok = null;
+    this.rijder = null;
   }
   
   nieuwSpel() {
     this.level = 0;
     this.actief = false;
-    this.gewonnen = false;
+    this.speler1.gewonnen = false;
+    this.speler2.gewonnen = false;
     this.afgelopen = false;
     this.nieuwLevel();
+    motor.punt = 0;
+    auto.punt = 0;
+ 
+  
   }
 
   nieuwLevel() {
   this.level ++;
   this.rijder = [];
-  this.Nrijder = this.rijder - 2 *(this.level - 1);
   this.speler1.x = 10;
-  this.speler1.y = 200;
+  this.speler1.y = 650;
   this.speler2.x = 10;
-  this.speler2.y = 650;
-  // this.rijder.push(new spookrijder);
-  // for(var s = 0;s < this.Nrijder ;s++){
-  //   this.rijder.push(new spookrijder);
+  this.speler2.y = 200;
+  this.levelGehaald = false;
+  //this.rijder.push(new spookrijder());
+  if (frameCount % 149 == 0 || frameCount % 197 == 0 || frameCount % 229 == 0 || frameCount % 239 == 0 || frameCount % 269 == 0) {
+  // for (var r = 0; r < this.rijder.length;r++) {
+    this.rijder.push(new spookrijder());
   // }
-    if (this.level > this.maxLevel) {
-      this.afgelopen = true;
-      this.gewonnen = true;
-      this.actief = false;
   }
-  else {
-      this.levelGehaald = false;
   }
-}
+    
+
 
  update(){
+
   if (this.actief && !this.levelGehaald) {
     if (this.speler1.x >= canvas.width) {
       this.levelGehaald = true;
+      motor.punt += 1;
+      if (this.level == this.maxLevel) {
+        this.afgelopen = true;
+        this.speler1.gewonnen = false;
+        this.actief = false;
+    }
     }
       if (this.speler2.x >= canvas.width) {
         this.levelGehaald = true;
-      }
-      if (this.level == this.maxLevel) {
+        auto.punt += 1;
+        if (this.level == this.maxLevel) {
           this.afgelopen = true;
-          this.gewonnen = true;
+          this.speler2.gewonnen = false;
           this.actief = false;
       }
+      }
+      if(this.actief && this.level >= 2 && this.level < 5) {
+        for (var r = 0;r < this.rijder.length;r++) {
+          this.rijder[r].beweeg();
+    }
+      }
+      	if(auto.punt == 2){
+          this.afgelopen = true;
+          this.speler2.gewonnen = true;
+          this.actief = false;
+        }
+        if(motor.punt == 2){
+          this.afgelopen = true;
+          this.speler1.gewonnen = true;
+          this.actief = false;
+        }
+        if(camera.draai == true && stoplicht.rood == true && (keyIsDown(65) || keyIsDown(68) || keyIsDown(87) || keyIsDown(83) )){
+          this.speler1.x = 0;
+          this.speler1.y = 650;
+      
+      }
+      if(camera.draai == true && stoplicht.rood == true && (keyIsDown(LEFT_ARROW) || keyIsDown(RIGHT_ARROW) || keyIsDown(UP_ARROW) || keyIsDown(DOWN_ARROW))){
+        this.speler2.x = 0;
+        this.speler2.y = 200;
+      
+      }
   }
-
-  if(motor.x < 1800 && this.draai == true && stoplicht.rood == true && (keyIsDown(65) || keyIsDown(68) || keyIsDown(87) || keyIsDown(83) )){
-    motor.x = 0;
-    motor.y = 650;
-
-}
-if(auto.x < 1800 && this.draai == true && stoplicht.rood == true && (keyIsDown(LEFT_ARROW) || keyIsDown(RIGHT_ARROW) || keyIsDown(UP_ARROW) || keyIsDown(DOWN_ARROW))){
-    auto.x = 0;
-    auto.y = 280;
-
-}
-
-
-
 }
 
 
@@ -77,44 +99,53 @@ if(auto.x < 1800 && this.draai == true && stoplicht.rood == true && (keyIsDown(L
     noStroke();
     textSize(30);
     fill(255);
-    text("Level "+this.level+"",100,0,canvas.width - 2 * 100, canvas.height - 910);   
+    text("Level "+this.level+"",100,0,canvas.width - 2 * 100, canvas.height + 910);   
+    text("score van motor: "+motor.punt+"",100,0,canvas.width - 2 * 100, canvas.height - 930);   
+    text("score van auto: "+auto.punt+"",100,0,canvas.width - 2 * 100, canvas.height - 870);  
     pop();
+    
   }
   
   beginScherm() {
     push();
-    fill('black');
     noFill();
     stroke(150,200,255,.7);
     strokeWeight(5);
     textSize(140);
-    text("Red light, Green light",0,0,canvas.width,canvas.height * 2 / 3);
+    fill('red');
+    text('Red light,',0,0,canvas.width,canvas.height * 0.45);
+    fill('green');
+    text('Green light',0,0,canvas.width,canvas.height * 0.75);
     textSize(32);
     strokeWeight(2);
     fill(0,0,0,0.75);
-    text("Probeer aan de overkant de komen binnen de tijd! \n Maar de camera mag niet zien dat je door rood rijd. \n\nKlik om te starten\n",0,canvas.height * 1 / 2,canvas.width,canvas.height * 1 / 3);
+    fill('black');
+    text("Probeer aan de overkant de komen binnen de tijd! \n Maar de camera mag niet zien dat je door rood rijd. \n\nKlik op enter\n",0,canvas.height * 1 / 2,canvas.width,canvas.height * 1 / 3);
     pop();
   }
 
   levelScherm() {
     push();
-    fill(50,80,80,.5);
-    stroke(150,200,255,.7);
+    fill(0);
+    stroke(100,200,255,.7);
     strokeWeight(3);
-    text('Gefeliciteerd!\nJe hebt level '+this.level+' gehaald!\n\nDruk ENTER om naar level '+(this.level+1)+' te gaan.',0,0,canvas.width,canvas.height / 2);
+    text('Gefeliciteerd!\nJe hebt level '+this.level+' gehaald!\n\nDruk op ENTER om naar level '+(this.level+1)+' te gaan.',0,0,canvas.width,canvas.height / 2);
     pop();
   }   
 
+
   eindScherm() {
-    var tekst = 'Je hebt het gehaald.';
-    if (this.gewonnen) {
-      tekst = 'Gefeliciteerd!';
+    var tekst = 'Auto';
+    if (this.speler1.gewonnen) {
+      tekst = 'Motor';
     }
+      tekst += ' heeft gewonnen!\n Motor score: ' +motor.punt+' \n Auto score: ' +auto.punt;
++  
     push();
     fill(0);
     stroke(100,75,50,.8);
     strokeWeight(3);
-    text(tekst + '\n\nDruk ENTER voor nieuw spel.',0,0,canvas.width,canvas.height);
+    text(tekst + '\n\nDruk op spatie voor nieuw spel.',0,0,canvas.width,canvas.height -400);
     pop();
   }    
   
@@ -131,12 +162,14 @@ if(auto.x < 1800 && this.draai == true && stoplicht.rood == true && (keyIsDown(L
     else {
         if (this.levelGehaald) {
             this.levelScherm();
+
         }
+
         else {
-          // auto.wordJeGeraakt(motor);
-          // auto.wordJeGeraakt(spookrijder);
-          // motor.wordJeGeraakt(auto);
-          // motor.wordJeGeraakt(spookrijder);
+          this.speler1.wordJeGeraakt(this.speler2);
+          this.speler2.wordJeGeraakt(this.speler1);
+          this.speler2.wordJeGeraakt(spookrijder);
+          this.speler1.wordJeGeraakt(spookrijder);
           this.speler2.teken();
           this.speler2.beweeg();
           this.speler1.teken();
@@ -146,7 +179,11 @@ if(auto.x < 1800 && this.draai == true && stoplicht.rood == true && (keyIsDown(L
           stoplicht.teken();
           camera.teken();
           this.tekenScorebord();
-            
+          if(this.actief && this.level >= 2 && this.level < 5) {
+            for (var r = 0;r < this.rijder.length;r++) {
+              this.rijder[r].teken();
+        }
+      }
         }
     }
   }

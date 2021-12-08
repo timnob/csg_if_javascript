@@ -7,12 +7,11 @@ class camera {
     this.kleur = 'black';
     this.draai = false;
     this.tijd = round(random(2,5));
+    this.punt = 0;
 }
 
 
 teken() {
-  fill('white')
-  rect(1800,63,10,845);
     push();
 
 

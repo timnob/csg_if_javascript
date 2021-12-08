@@ -31,73 +31,36 @@ function draw() {
     // stoplicht.teken();
   //   auto.teken();
   //   auto.beweeg();
-  //   auto.wordJeGeraakt(motor);
-  //   auto.wordJeGeraakt(spookrijder);
+    // auto.wordJeGeraakt(motor);
+    // auto.wordJeGeraakt(spookrijder);
+
+    // motor.wordJeGeraakt(auto);
+    // motor.wordJeGeraakt(spookrijder);
+  //  camera.teken();  
   //   motor.teken();
   //   motor.beweeg();
-  //   motor.wordJeGeraakt(auto);
-  //   motor.wordJeGeraakt(spookrijder);
-  //  camera.teken();
   //   spookrijder.teken();
   //   spookrijder.beweeg();
     spel.teken();
     spel.update();
-
-    
-
-  }
-
-  function mousePressed() {
-    if (spel.actief) {
-      spel.levelGehaald = true;
-    }
-    if (spel.level>=spel.maxLevel) {
-      spel.afgelopen = true;
-      spel.gewonnen = true;
-      spel.actief = false;
-    }  
   }
   
-
- function mousePressed() {
-     if (!this.actief) {
-    
-    spel.actief = true;
-  }
-
-    else {
-      if (spel.afgelopen) {
-        spel.nieuw();
-      }
-    }
-  }
-
-
-//   function mousePressed() {
-//     if (spel.actief) {
-//       spel.levelGehaald = true;
-//     }
-//     if (spel.level>=spel.maxLevel) {
-//       spel.afgelopen = true;
-//       spel.gewonnen = true;
-//       spel.actief = false;
-//     }  
-//   }
-  
-function keyPressed() {
-  if (keyCode == 27) {
+function keyTyped() {
+  if(keyCode == ENTER){
     if (!spel.actief && !spel.levelGehaald) {
       // begin spel
       spel.actief = true;
-      spel.nieuwSpel();
     }
   }
     if ((spel.levelGehaald && !spel.afgelopen) && keyCode == ENTER) {
       // level gehaald tijdens het spel
       spel.nieuwLevel();
-    }
+    }  
     if ((spel.afgelopen) && keyCode == 32) {
       // einde spel
       spel.nieuwSpel();
-    }  
-  }
+    } 
+
+    
+}
+  

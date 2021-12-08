@@ -2,11 +2,10 @@ class auto{
     constructor(){
         this.breedte = 200;
         this.hoogte = 100;
-        this.y = 200;
-        this.x =10;
         this.kleur = 'red';
         this.gewonnen = false;
-        this.rijSnelheid = 10;
+        this.rijSnelheid = 30;
+        this.punt = null;
     }
     wordJeGeraakt(motor) {
       if (motor.x >= this.x - motor.breedte && motor.x <= this.x + this.breedte && motor.y > this.y - motor.hoogte && motor.y < this.y + this.hoogte) {

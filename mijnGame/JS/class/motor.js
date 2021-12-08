@@ -2,12 +2,11 @@ class motor{
     constructor(){
         this.breedte = 200 ;
         this.hoogte = 100;
-        this.y = 650;
-        this.x = 10;
         this.kleur = 'blue';
         this.gewonnen = false;
-        this.rijSnelheid = 10;
+        this.rijSnelheid = 30;
         this.geraakt = false ;
+        this.punt = null;
     }
     wordJeGeraakt(auto) {
       if (auto.x >= this.x - auto.breedte && auto.x <= this.x + this.breedte && auto.y > this.y - auto.hoogte && auto.y < this.y + this.hoogte) {
