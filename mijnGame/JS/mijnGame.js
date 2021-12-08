@@ -8,28 +8,37 @@ function preload() {
   }
 
 function setup(){
-
+  colorMode(RGB,255,255,255,1);
+  textFont("Monospace");
+  textSize(44); 
+  // canvas.parent('processing');
     canvas = createCanvas(windowWidth,windowHeight);  
     textAlign(CENTER,CENTER); 
- 
 
     spel = new spel();
+    auto = new auto();
+    motor = new motor();
+    stoplicht = new stoplicht();
+    camera = new camera();
+    spel.nieuwSpel();
+    // spookrijder = new spookrijder();
 
-    //spookrijder = new spookrijder();
+
 }
 function draw() {
-    // stoplicht.teken();
-    // auto.teken();
-    // auto.beweeg();
-    // auto.wordJeGeraakt(motor);
-    // auto.wordJeGeraakt(spookrijder);
-    // motor.teken();
-    // motor.beweeg();
-    // motor.wordJeGeraakt(auto);
-    // motor.wordJeGeraakt(spookrijder);
-    // camera.teken();
-    //spookrijder.teken();
-    //spookrijder.beweeg();
+  background(achtergrond);
+    stoplicht.teken();
+    auto.teken();
+    auto.beweeg();
+    auto.wordJeGeraakt(motor);
+    auto.wordJeGeraakt(spookrijder);
+    motor.teken();
+    motor.beweeg();
+    motor.wordJeGeraakt(auto);
+    motor.wordJeGeraakt(spookrijder);
+    camera.teken();
+    // spookrijder.teken();
+    // spookrijder.beweeg();
     spel.teken();
     spel.update();
 
@@ -49,18 +58,18 @@ function draw() {
   }
   
 
-//  function mousePressed() {
-//      if (!this.actief) {
+ function mousePressed() {
+     if (!this.actief) {
     
-//     spel.actief = true;
-//   }
+    spel.actief = true;
+  }
 
-//     else {
-//       if (spel.afgelopen) {
-//         spel.nieuw();
-//       }
-//     }
-//   }
+    else {
+      if (spel.afgelopen) {
+        spel.nieuw();
+      }
+    }
+  }
 
 
 //   function mousePressed() {
@@ -74,10 +83,12 @@ function draw() {
 //     }  
 //   }
   
-  function keyTyped() {
+function keyPressed() {
+  if (keyCode == ENTER) {
     if (!spel.actief && !spel.levelGehaald) {
       // begin spel
       spel.actief = true;
+      spel.nieuwSpel();
     }
     if ((spel.levelGehaald && !spel.afgelopen) && keyCode == ENTER) {
       // level gehaald tijdens het spel
@@ -88,3 +99,4 @@ function draw() {
       spel.nieuwSpel();
     }  
   }
+}

@@ -1,12 +1,14 @@
 class spel{
     constructor() {
-    this.level = null;
+    this.level = 0;
     this.maxLevel = 3;
-    this.actief = null;
+    this.actief = false;
     this.levelGehaald = null;
     this.afgelopen = null;
+    this.Nrijder = false;
     this.gewonnen = null;
-    this.alfa = 0.5;
+    this.speler1 = new motor();
+    this.speler2 = new auto();
   }
   
   nieuwSpel() {
@@ -18,41 +20,59 @@ class spel{
   }
 
   nieuwLevel() {
-    this.level++;
-    this.levelGehaald = false;
+  this.level ++;
+  this.rijder = [];
+  this.Nrijder = this.rijder - 2 *(this.level - 1);
+  this.speler1.x = 10;
+  this.speler1.y = 200;
+  this.speler2.x = 10;
+  this.speler2.y = 650;
+  this.rijder.push(new spookrijder);
+  for(var s = 0;s < this.Nrijder ;s++){
+    this.rijder.push(new spookrijder);
   }
+    if (this.level> this.maxLevel) {
+      this.afgelopen = true;
+      this.gewonnen = true;
+      this.actief = false;
+  }
+  else {
+      this.levelGehaald = false;
+  }
+}
 
-  update() {
-    this.alfa += random(-3,3) / 100;
-    if (this.alfa <= 0 || this.alfa >=1) {
-        this.alfa = 0.5;
-    }
+ update(){
+  if (this.actief && !this.levelGehaald) {
+    if (this.speler1.x > canvas.width - 300) {
+      this.levelGehaald = true;
+      if (this.speler2.x > canvas.width - 300) {
+        this.levelGehaald = true;
+      if (this.level == this.maxLevel) {
+          this.afgelopen = true;
+          this.gewonnen = true;
+          this.actief = false;
+      }
   }
+}
 
-   tekenAnimatie() {
-    push();
-    noStroke();
-    fill(120,130,150,this.alfa);
-    rect(10,10,880,580);
-    pop();
-  }
+}
+}
+
 
   tekenScorebord() {
     push();
-    fill(0,0,0,.8);
     noStroke();
     textSize(30);
-    var marge = 100;
-    rect(marge,marge,canvas.width - 2 * marge,canvas.height - 2 * marge);
     fill(255);
-    text(" Dit is Level "+this.level+"\nHet spel is actief.\n\nKlik om het level te \"halen\".",marge,marge,canvas.width - 2 * marge,canvas.height - 2 * marge);   
+    text("Level "+this.level+"",100,100,canvas.width - 2 * 100,canvas.height - 2 *10);   
     pop();
   }
   
   beginScherm() {
     push();
+    fill('black');
     noFill();
-    stroke(150,200,255,.7);
+
     strokeWeight(5);
     textSize(140);
     text(" Spel MET Levels",0,0,canvas.width,canvas.height * 2 / 3);
@@ -100,13 +120,22 @@ class spel{
             this.levelScherm();
         }
         else {
+          this.speler2.teken();
+          this.speler1.beweeg();
+          this.speler1.teken();
+          this.speler1.beweeg();
+          stoplicht.teken();
+          auto.wordJeGeraakt(motor);
+          auto.wordJeGeraakt(spookrijder);
+          motor.wordJeGeraakt(auto);
+          motor.wordJeGeraakt(spookrijder);
+          camera.teken();
             this.tekenScorebord();
-            this.tekenAnimatie();
+            
         }
     }
   }
 }
-
 
 
 
@@ -324,7 +353,7 @@ class spel{
 //   }   
 
 //   // teken() {
-//   //   background(achtergrond);
+//   //   background(achtergrond);d
 //   //   if (!this.actief) {
 //   //       if (this.afgelopen) {
 //   //           this.eindScherm();
