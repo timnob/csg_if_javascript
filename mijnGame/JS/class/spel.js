@@ -7,26 +7,32 @@ class spel{
     this.afgelopen = null;
     this.speler1 = new motor();
     this.speler2 = new auto();
+    this.computer = new camera();
     this.speler2.gewonnen = null;
     this.speler1.gewonnen = null;
+    this.computer.gewonnen = null;
     this.klok = null;
     this.rijder = null;
   }
   
   nieuwSpel() {
+    this.klok = 200;
     this.level = 0;
     this.actief = false;
     this.speler1.gewonnen = false;
     this.speler2.gewonnen = false;
+    this.computer.gewonnen = false;
     this.afgelopen = false;
     this.nieuwLevel();
     motor.punt = 0;
     auto.punt = 0;
+    camera.punt = 0;
  
   
   }
 
   nieuwLevel() {
+    this.klok -= 30;
   this.level ++;
   this.rijder = [];
   this.speler1.x = 10;
@@ -47,6 +53,16 @@ class spel{
  update(){
 
   if (this.actief && !this.levelGehaald) {
+    if (frameCount % 60 == 0 && this.klok >= 0) {
+      this.klok--
+    }
+
+    if (frameCount % 60 == 0 && this.klok == 0) {
+      this.afgelopen = false;
+      this.levelGehaald = true;
+      this.computer.gewonnen = true;
+
+    }
     if (this.speler1.x >= canvas.width) {
       this.levelGehaald = true;
       motor.punt += 1;
@@ -69,7 +85,8 @@ class spel{
         for (var r = 0;r < this.rijder.length;r++) {
           this.rijder[r].beweeg();
     }
-      }
+  }
+
       	if(auto.punt == 2){
           this.afgelopen = true;
           this.speler2.gewonnen = true;
@@ -78,6 +95,11 @@ class spel{
         if(motor.punt == 2){
           this.afgelopen = true;
           this.speler1.gewonnen = true;
+          this.actief = false;
+        }
+        if(camera.punt == 2){
+          this.afgelopen = true;
+          this.speler2.gewonnen = true;
           this.actief = false;
         }
         if(camera.draai == true && stoplicht.rood == true && (keyIsDown(65) || keyIsDown(68) || keyIsDown(87) || keyIsDown(83) )){
@@ -92,16 +114,24 @@ class spel{
       }
   }
 }
-
+  tekenTimer(){
+    push();
+    noStroke();
+    textSize(30);
+    fill(255);
+    text("Timer",100,0,canvas.width - 800, canvas.height - 910);
+    pop();
+  }
 
   tekenScorebord() {
     push();
     noStroke();
     textSize(30);
     fill(255);
-    text("Level "+this.level+"",100,0,canvas.width - 2 * 100, canvas.height + 910);   
+    text("Ronde "+this.level+"",100,0,canvas.width - 2 * 100, canvas.height + 910);   
     text("score van motor: "+motor.punt+"",100,0,canvas.width - 2 * 100, canvas.height - 930);   
     text("score van auto: "+auto.punt+"",100,0,canvas.width - 2 * 100, canvas.height - 870);  
+    text("score van camera: "+camera.punt+"",600,0,canvas.width - 2 * 100, canvas.height - 930);  
     pop();
     
   }
@@ -125,11 +155,14 @@ class spel{
   }
 
   levelScherm() {
+ 
+     var t = '\n Gefeliciteerd je hebt de ronde '+this.level+' gehaald!';
++
     push();
     fill(0);
     stroke(100,200,255,.7);
     strokeWeight(3);
-    text('Gefeliciteerd!\nJe hebt level '+this.level+' gehaald!\n\nDruk op ENTER om naar level '+(this.level+1)+' te gaan.',0,0,canvas.width,canvas.height / 2);
+    text(t + '\n Motor score: ' +motor.punt+' \n Auto score: ' +auto.punt+ '\n\nDruk op ENTER om naar ronde '+(this.level+1)+' te gaan.',0,0,canvas.width,canvas.height / 2);
     pop();
   }   
 
@@ -179,6 +212,7 @@ class spel{
           stoplicht.teken();
           camera.teken();
           this.tekenScorebord();
+          this.tekenTimer();
           if(this.actief && this.level >= 2 && this.level < 5) {
             for (var r = 0;r < this.rijder.length;r++) {
               this.rijder[r].teken();
