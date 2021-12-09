@@ -32,7 +32,8 @@ class spel{
   }
 
   nieuwLevel() {
-    this.klok -= 30;
+  this.klok = 10;
+  this.klok  = this.klok - (this.level * 4);
   this.level ++;
   this.rijder = [];
   this.speler1.x = 10;
@@ -51,7 +52,6 @@ class spel{
 
 
  update(){
-
   if (this.actief && !this.levelGehaald) {
     if (frameCount % 60 == 0 && this.klok >= 0) {
       this.klok--
@@ -61,6 +61,7 @@ class spel{
       this.afgelopen = false;
       this.levelGehaald = true;
       this.computer.gewonnen = true;
+      camera.punt += 1;
 
     }
     if (this.speler1.x >= canvas.width) {
@@ -77,6 +78,7 @@ class spel{
         auto.punt += 1;
         if (this.level == this.maxLevel) {
           this.afgelopen = true;
+          this.speler1.gewonnen = false;
           this.speler2.gewonnen = false;
           this.actief = false;
       }
@@ -119,7 +121,7 @@ class spel{
     noStroke();
     textSize(30);
     fill(255);
-    text("Timer",100,0,canvas.width - 800, canvas.height - 910);
+    text("Tijd: "+this.klok+"" ,600,0,canvas.width - 2* 100, canvas.height - 875);
     pop();
   }
 
@@ -129,8 +131,8 @@ class spel{
     textSize(30);
     fill(255);
     text("Ronde "+this.level+"",100,0,canvas.width - 2 * 100, canvas.height + 910);   
-    text("score van motor: "+motor.punt+"",100,0,canvas.width - 2 * 100, canvas.height - 930);   
-    text("score van auto: "+auto.punt+"",100,0,canvas.width - 2 * 100, canvas.height - 870);  
+    text("score van motor: "+motor.punt+"",100,0,canvas.width - 2 * 600, canvas.height - 930);   
+    text("score van auto: "+auto.punt+"",100,0,canvas.width - 2 * 600, canvas.height - 870);  
     text("score van camera: "+camera.punt+"",600,0,canvas.width - 2 * 100, canvas.height - 930);  
     pop();
     
@@ -151,18 +153,22 @@ class spel{
     fill(0,0,0,0.75);
     fill('black');
     text("Probeer aan de overkant de komen binnen de tijd! \n Maar de camera mag niet zien dat je door rood rijd. \n\nKlik op enter\n",0,canvas.height * 1 / 2,canvas.width,canvas.height * 1 / 3);
+    image(autoplaatje, 30, 30, 40, 40);
+    // image();
+    // image();
+    // image();
     pop();
   }
 
   levelScherm() {
  
-     var t = '\n Gefeliciteerd je hebt de ronde '+this.level+' gehaald!';
+     var t = '\n Gefeliciteerd, je hebt de ronde '+this.level+' gehaald!';
 +
     push();
     fill(0);
     stroke(100,200,255,.7);
     strokeWeight(3);
-    text(t + '\n Motor score: ' +motor.punt+' \n Auto score: ' +auto.punt+ '\n\nDruk op ENTER om naar ronde '+(this.level+1)+' te gaan.',0,0,canvas.width,canvas.height / 2);
+    text(t + '\n Motor score: ' +motor.punt+' \n Auto score: ' +auto.punt+ '\n Camera score: ' +camera.punt+'\n\nDruk op ENTER om naar ronde '+(this.level+1)+' te gaan.',0,0,canvas.width,canvas.height / 2);
     pop();
   }   
 
@@ -171,8 +177,12 @@ class spel{
     var tekst = 'Auto';
     if (this.speler1.gewonnen) {
       tekst = 'Motor';
+      image(motorplaatje,canvas.width/2 ,100,200,100 );
     }
-      tekst += ' heeft gewonnen!\n Motor score: ' +motor.punt+' \n Auto score: ' +auto.punt;
+    if (this.computer.gewonnen) {
+      tekst = 'Camera';
+    }
+      tekst += ' heeft gewonnen!\n Motor score: ' +motor.punt+' \n Auto score: ' +auto.punt+ '\n Camera score: ' +camera.punt;
 +  
     push();
     fill(0);

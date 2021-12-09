@@ -9,18 +9,18 @@ class stoplicht {
     teken() {
         push();
         fill('black');
-        rect(470,0,60,140);
+        rect(canvas.width/2 - 75,0,150,62);
      
 
         if (!this.rood) {
           
             fill('green');
-            ellipse(500,105,40);
+            ellipse(canvas.width /2+ 30,30,45);
             // this.timer = roudrandom(2,5);
             this.rood = false;
         } else {
             fill('red');
-            ellipse(500,55,40);
+            ellipse(canvas.width /2 -30 ,30,45);
             // this.timer = round(random(200,500));
             this.rood = true;
 

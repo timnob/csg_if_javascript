@@ -13,8 +13,6 @@ class camera {
 
 teken() {
     push();
-
-
     if (frameCount % 60 == 0 && this.tijd >= 0) {
         this.tijd--
       }
@@ -30,7 +28,6 @@ teken() {
         rect(1855,470,30,20);
         // this.timer = roudrandom(2,5);
         this.draai = false;
-
     } 
     else {
         fill(this.kleur);
@@ -39,6 +36,5 @@ teken() {
         // this.timer = round(random(200,500));
         this.draai= true;
     }
-    
   }
 }
