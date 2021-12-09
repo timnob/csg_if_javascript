@@ -177,7 +177,7 @@ class spel{
     var tekst = 'Auto';
     if (this.speler1.gewonnen) {
       tekst = 'Motor';
-      image(motorplaatje,canvas.width/2 ,100,200,100 );
+      image(motorplaatje,canvas.width/2 -100,100,200,100 );
     }
     if (this.computer.gewonnen) {
       tekst = 'Camera';
