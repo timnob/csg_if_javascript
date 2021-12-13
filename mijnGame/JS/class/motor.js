@@ -6,7 +6,7 @@ class motor{
         this.gewonnen = false;
         this.rijSnelheid = 30;
         this.geraakt = false ;
-        this.punt = null;
+        
     }
     wordJeGeraakt(auto) {
       if (auto.x >= this.x - auto.breedte && auto.x <= this.x + this.breedte && auto.y > this.y - auto.hoogte && auto.y < this.y + this.hoogte) {
@@ -49,6 +49,7 @@ class motor{
           this.x = 10;
           this.y = 650;
           this.geraakt = false;
+          
         }
 
       }

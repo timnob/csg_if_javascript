@@ -7,7 +7,7 @@ class camera {
     this.kleur = 'black';
     this.draai = false;
     this.tijd = round(random(2,5));
-    this.punt = 0;
+
 }
 
 

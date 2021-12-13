@@ -4,7 +4,8 @@ function preload() {
     achtergrond = loadImage("road.jpg");
     autoplaatje = loadImage("auto.png");
    spookrijderplaatje = loadImage("spookrijder.png");
-
+   lettertoetsen = loadImage("lettertoetsen.png");
+   pijltoetsen = loadImage("pijltoetsen.png");
   }
 
 function setup(){
@@ -28,19 +29,7 @@ function setup(){
 }
 function draw() {
   background(achtergrond);
-    // stoplicht.teken();
-  //   auto.teken();
-  //   auto.beweeg();
-    // auto.wordJeGeraakt(motor);
-    // auto.wordJeGeraakt(spookrijder);
 
-    // motor.wordJeGeraakt(auto);
-    // motor.wordJeGeraakt(spookrijder);
-  //  camera.teken();  
-  //   motor.teken();
-  //   motor.beweeg();
-  //   spookrijder.teken();
-  //   spookrijder.beweeg();
     spel.teken();
     spel.update();
   }
@@ -56,7 +45,7 @@ function keyTyped() {
       // level gehaald tijdens het spel
       spel.nieuwLevel();
     }  
-    if ((spel.afgelopen) && keyCode == 32) {
+    if (spel.afgelopen) {
       // einde spel
       spel.nieuwSpel();
     } 

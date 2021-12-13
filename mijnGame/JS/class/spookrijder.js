@@ -8,52 +8,54 @@ class spookrijder{
         this.y = random(this.start,windowHeight);
         this.basisSnelheid = 5;
         this.snelheid = (this.basisSnelheid + round(random(5,10)));
-        this.klok = round(random(1,2));
-        this.rijder = [];
+        //this.klok = round(random(1,2));
 
 
     }
+
     teken(){
         push();
         noStroke();
         image(spookrijderplaatje,this.x,this.y,this.breedte,this.hoogte);
         pop();
     }
-    maakrijder(){
-        if (frameCount % 60 == 0 && this.klok >= 0) {
-            this.klok--
-          }
+//     maakrijder(){
+//         if (frameCount % 60 == 0 && this.klok >= 0) {
+//             this.klok--
+//           }
     
     
-          if (frameCount % 60 == 0 && this.klok == 0) {
-              for(var s = 0;s < 3 ;s++){
-                 this.rijder.push(new spookrijder);
-            //       this.rijder[s].beweeg();
-            //       this.rijder[s].teken();
-            //       this.klok = round(random(2,5));
+//           if (frameCount % 60 == 0 && this.klok == 0) {
+
+//             //       this.rijder[s].beweeg();
+//             //       this.rijder[s].teken();
+//             //       this.klok = round(random(2,5));
     
-            //   }
+//             //   }
              
-    }
-    }
-}
+    
+//     }
+// }
 
 
    
             
         
-
-beweeg(){
+    
+beweeg() {
     this.x += -this.snelheid;
     this.y = constrain(this.y,62,910 - this.hoogte);
-}
-    
-update(){
 
-        for(var s = 0;s < this.rijder.length;s++){
-            this.rijder[s].beweeg();
-            this.klok = round(random(2,5));
     
-             }
+
+// update(){
+
+//         for(var s = 0;s < this.rijder.length;s++){
+//             this.rijder[s].beweeg();
+//             this.klok = round(random(2,5));
+    
+//              }
+// }
+
 }
 }
