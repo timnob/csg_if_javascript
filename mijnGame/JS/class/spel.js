@@ -168,7 +168,7 @@ if (this.speler2.x >= this.speler1.x - this.speler2.breedte && this.speler2.x <=
     strokeWeight(2);
     fill(0,0,0,0.75);
     fill('black');
-    text("Probeer aan de overkant de komen binnen de tijd! \n Maar de camera mag niet zien dat je door rood rijd. \n Let dus goed op en rem optijd! \n\nKies je vervoersmiddel en klik op enter\n",0,canvas.height * 1 / 2,canvas.width,canvas.height * 1 / 3);
+    text("Probeer aan de overkant te komen binnen de tijd! \n Maar de camera mag niet zien dat je door rood rijdt. \n Let dus goed op en rem op tijd! \n\nKies je vervoersmiddel en klik op enter\n",0,canvas.height * 1 / 2,canvas.width,canvas.height * 1 / 3);
     image(autoplaatje,160,600,200,100 );
     image(pijltoetsen,160,700,200,120 );
     image(motorplaatje,1550,600,200,100 );
