@@ -30,20 +30,20 @@ class spel{
   }
 
   nieuwLevel() {
+    this.speler1.x = 10;
+    this.speler1.y = 650;
+    this.speler1.x = 10;
+    this.speler2.y = 200;
   this.klok = 20;
   this.klok  = this.klok - (this.level * 2);
   this.level ++;
-  this.speler1.x = 10;
-  this.speler1.y = 650;
-  this.speler1.x = 10;
-  this.speler2.y = 200;
   this.levelGehaald = false;
-  for(var r = 0;r < (this.level + 1) ;r++ ){
-  this.rijder.push(new spookrijder());
-  this.rijder[r].x = random(2000, 3500);
-  this.rijder[r].y = random(0,windowHeight);
+  // for(var r = 0;r < (this.level + 1) ;r++ ){
+  // this.rijder.push(new spookrijder());
+  // this.rijder[r].x = random(2000, 3500);
+  // this.rijder[r].y = random(0,windowHeight);
 
-  }
+  // }
 }
 
 
@@ -61,11 +61,11 @@ class spel{
       this.computer.punt += 1;
 
     }
-    for(var r = 0;r < this.rijder.length ;r++ ){
-    if(this.rijder[r].x <= -400){
-      this.rijder[r].x = 2000;
-      this.rijder[r].y = random(0,windowHeight);
-    }
+    // for(var r = 0;r < this.rijder.length ;r++ ){
+    // if(this.rijder[r].x <= -400){
+    //   this.rijder[r].x = 2000;
+    //   this.rijder[r].y = random(0,windowHeight);
+    // }
   }
     if (this.speler1.x >= canvas.width) {
       this.levelGehaald = true;
@@ -73,7 +73,6 @@ class spel{
       if (this.level == this.maxLevel) {
         this.afgelopen = true;
         this.speler1.gewonnen = false;
-        this.speler2.gewonnen = false;
         this.actief = false;
     }
     }
@@ -83,13 +82,12 @@ class spel{
         if (this.level == this.maxLevel) {
           this.afgelopen = true;
           this.speler2.gewonnen = false;
-          this.speler1.gewonnen = false;
           this.actief = false;
       }
     }
-        for (var r = 0;r < this.rijder.length;r++) {
-          this.rijder[r].beweeg();
-    }
+    //     for (var r = 0;r < this.rijder.length;r++) {
+    //       this.rijder[r].beweeg();
+    // }
       	if(this.speler2.punt == 2){
           this.afgelopen = true;
           this.speler2.gewonnen = true;
@@ -122,8 +120,8 @@ class spel{
     for (var r = 0;r < this.rijder.length;r++) {
       this.speler1.wordJeGeraakt(this.rijder[r]);
   }
-  }
-}
+    }
+
   tekenTimer(){
     push();
     noStroke();
@@ -236,10 +234,8 @@ else {
         }
 
         else {
-          this.speler1.wordJeGeraakt(this.speler2);
-          this.speler2.wordJeGeraakt(this.speler1);
-          this.speler2.wordJeGeraakt(spookrijder);
-          this.speler1.wordJeGeraakt(spookrijder);
+          // this.speler2.wordJeGeraakt(spookrijder);
+          // this.speler1.wordJeGeraakt(spookrijder);
           this.speler2.teken();
           this.speler2.beweeg();
           this.speler1.teken();
@@ -248,11 +244,13 @@ else {
           camera.teken();
           this.tekenScorebord();
           this.tekenTimer();
+          this.speler1.wordJeGeraakt(this.speler2);
+          this.speler2.wordJeGeraakt(this.speler1);
          
-            for (var r = 0;r < this.rijder.length;r++) {
-              this.rijder[r].teken();
+      //       for (var r = 0;r < this.rijder.length;r++) {
+      //         this.rijder[r].teken();
         
-      }
+      // }
         }
     }
   }

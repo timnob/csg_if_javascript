@@ -1,30 +1,28 @@
 class auto{
     constructor(){
-      this.x = 10;
-      this.y = 200;
         this.breedte = 200;
         this.hoogte = 100;
         this.kleur = 'red';
         this.gewonnen = false;
         this.rijSnelheid = 6;
+        this.geraakt = false;
         
     }
     wordJeGeraakt(motor) {
       if (motor.x >= this.x - motor.breedte && motor.x <= this.x + this.breedte && motor.y > this.y - motor.hoogte && motor.y < this.y + this.hoogte) {
-        this.x = 10;
-        this.y = 200;
-        spel.levelGehaald = false;
+        this.geraakt = true;
+        
       }
     }
-    wordJeGeraakt(spookrijder) {
-      if (spookrijder.x >= this.x - spookrijder.breedte && spookrijder.x <= this.x + this.breedte && spookrijder.y > this.y - spookrijder.hoogte && spookrijder.y < this.y + this.hoogte) {
-        this.x = 10;
-        this.y = 200;
-        spookrijder.x = 2000;
-        spookrijder.y = random(0,windowHeight);
-        spookrijder.snelheid = (spookrijder.basisSnelheid + round(random(5,10)));
-      }
-    }
+    // wordJeGeraakt(spookrijder) {
+    //   if (spookrijder.x >= this.x - spookrijder.breedte && spookrijder.x <= this.x + this.breedte && spookrijder.y > this.y - spookrijder.hoogte && spookrijder.y < this.y + this.hoogte) {
+    //     this.x = 10;
+    //     this.y = 200;
+    //     spookrijder.x = 2000;
+    //     spookrijder.y = random(0,windowHeight);
+    //     spookrijder.snelheid = (spookrijder.basisSnelheid + round(random(5,10)));
+    //   }
+    // }
 
     beweeg() {
         if (keyIsDown(LEFT_ARROW)) {
@@ -48,6 +46,11 @@ class auto{
         noStroke();
         fill(this.kleur);
         image(autoplaatje,this.x,this.y,this.breedte,this.hoogte );
+        if(this.geraakt){
+          this.x = 10;
+          this.y = 200;
+          this.geraakt= false;
+        }
         pop();
       }
 

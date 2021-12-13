@@ -12,7 +12,6 @@ function setup(){
   colorMode(RGB,0,0,0,0);
   textFont("Monospace");
   textSize(44); 
-;
     canvas = createCanvas(windowWidth,windowHeight);  
     textAlign(CENTER,CENTER); 
 
@@ -27,9 +26,8 @@ function setup(){
 }
 function draw() {
   background(achtergrond);
-
+   spel.update();
     spel.teken();
-    spel.update();
   }
   
 function keyTyped() {
