@@ -16,7 +16,6 @@ class spel{
   }
   
   nieuwSpel() {
-    this.klok = 200;
     this.level = 0;
     this.actief = false;
     this.speler1.gewonnen = false;
@@ -27,27 +26,26 @@ class spel{
     this.speler1.punt = 0;
     this.speler2.punt = 0;
     this.computer.punt = 0;
-
     this.nieuwLevel();
   }
 
   nieuwLevel() {
-  this.klok = 10;
+  this.klok = 20;
   this.klok  = this.klok - (this.level * 2);
   this.level ++;
   this.speler1.x = 10;
   this.speler1.y = 650;
-  this.speler2.x = 10;
+  this.speler1.x = 10;
   this.speler2.y = 200;
   this.levelGehaald = false;
-  for(var r = 0;r < this.level ;r++ ){
+  for(var r = 0;r < (this.level + 1) ;r++ ){
   this.rijder.push(new spookrijder());
-  this.rijder[r].x = random(2000, 20000);
+  this.rijder[r].x = random(2000, 3500);
   this.rijder[r].y = random(0,windowHeight);
 
   }
 }
-    
+
 
 
  update(){
@@ -92,8 +90,6 @@ class spel{
         for (var r = 0;r < this.rijder.length;r++) {
           this.rijder[r].beweeg();
     }
-  
-
       	if(this.speler2.punt == 2){
           this.afgelopen = true;
           this.speler2.gewonnen = true;
@@ -119,6 +115,13 @@ class spel{
         this.speler2.y = 200;
       
       }
+      for (var r = 0;r < this.rijder.length;r++) {
+        this.speler2.wordJeGeraakt(this.rijder[r]);
+    }
+  
+    for (var r = 0;r < this.rijder.length;r++) {
+      this.speler1.wordJeGeraakt(this.rijder[r]);
+  }
   }
 }
   tekenTimer(){
@@ -157,7 +160,7 @@ class spel{
     strokeWeight(2);
     fill(0,0,0,0.75);
     fill('black');
-    text("Probeer aan de overkant de komen binnen de tijd! \n Maar de camera mag niet zien dat je door rood rijd. \n\nKlik op enter\n",0,canvas.height * 1 / 2,canvas.width,canvas.height * 1 / 3);
+    text("Probeer aan de overkant de komen binnen de tijd! \n Maar de camera mag niet zien dat je door rood rijd. \n Let dus goed op en rem optijd! \n\nKies je vervoersmiddel en klik op enter\n",0,canvas.height * 1 / 2,canvas.width,canvas.height * 1 / 3);
     image(autoplaatje,160,600,200,100 );
     image(pijltoetsen,160,700,200,120 );
     image(motorplaatje,1550,600,200,100 );
@@ -166,9 +169,18 @@ class spel{
   }
 
   levelScherm() {
- 
+    var t = '\nGefeliciteerd';
+    var k = '';
+    if (this.speler2.levelGehaald) {
+      var k = ' Auto';
+    image(autoplaatje,canvas.width/2 -100,120,200,100 );
+    }
+    if (this.speler1.levelGehaald) {
+      var k = ' Motor';
+      image(motorplaatje,canvas.width/2 -100,120,200,100 );
+    }
     if (this.speler1.x >= canvas.width || this.speler2.x >= canvas.width) {
-      var t = '\n Gefeliciteerd, je hebt de ronde '+this.level+' gehaald!';
+      t+= k+=', je hebt de ronde '+this.level+' gehaald!';
   }
 else {
       var t = '\n Helaas, je hebt de ronde '+this.level+' niet binnen de tijd gehaald.';
@@ -188,19 +200,17 @@ else {
     var tekst = 'tekst';
     if (this.speler2.gewonnen) {
       var tekst = 'Auto';
-    image(autoplaatje,canvas.width/2 -100,100,200,100 );
+    image(autoplaatje,canvas.width/2 -100,120,200,100 );
     }
 
     if (this.speler1.gewonnen) {
       var tekst = 'Motor';
-      image(motorplaatje,canvas.width/2 -100,100,200,100 );
+      image(motorplaatje,canvas.width/2 -100,120,200,100 );
     }
 
     if (this.computer.gewonnen) {
       var tekst = 'Camera';
-      image(lettertoetsen, canvas.width/2 -100,100,200,100)
     }
-  
 +  
     push();
     fill(0);
@@ -223,7 +233,6 @@ else {
     else {
         if (this.levelGehaald) {
             this.levelScherm();
-
         }
 
         else {
@@ -248,262 +257,3 @@ else {
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//     constructor(settings){
-//       this.settings = settings;
-//         this.speler1 = new motor();
-//         this.speler2 = new auto();
-//         this.level = 0;
-//         this.afgelopen = null;
-//         this.gewonnen = null;  
-//         //this.maxLevel = this.settings[2];      
-//         this.actief = false;
-//         // this.tijdloper = this.settings[1]; 
-//         this.rijder = null;
-
-//         //this.tijdloper = new Tijdloper(settings[3]);
-//     }
-//     nieuwSpel() {
-//       this.speler1.gewonnen = false;
-//       this.speler2.gewonnen = false;
-//       this.afgelopen = false;
-//       if (this.afgelopen) {
-//         this.level = 0 ;
-//         this.afgelopen = false;
-        
-//     }
-//       if (this.gewonnen) {
-//           this.level =  -1;
-//           this.gewonnen = false;        
-//       }
-//       this.actief = false;
-//       this.nieuwLevel();
-//     }
-
-// nieuwLevel() {
-//   this.level ++;
-//   this.rijder = [];
-//   this.Nrijder = this.rijder - 2 *(this.level - 1);
-//   this.rijder.push(new spookrijder);
-//   for(var s = 0;s < this.Nrijder ;s++){
-//     this.rijder.push(new spookrijder);
-//   }
-//     if (this.level> this.maxLevel) {
-//       this.afgelopen = true;
-//       this.gewonnen = true;
-//       this.actief = false;
-//   }
-//   else {
-//       this.levelGehaald = false;
-//   }
-// }
-  
-// update(){
-//   if (this.actief && !this.levelGehaald) {
-//     if (this.speler1.x > canvas.width - 300) {
-//       this.levelGehaald = true;
-//       if (this.speler2.x > canvas.width - 300) {
-//         this.levelGehaald = true;
-//       if (this.level == this.maxLevel) {
-//           this.afgelopen = true;
-//           this.gewonnen = true;
-//           this.actief = false;
-//       }
-//   }
-// }
-//   if (this.speler2.x > canvas.width - 300) {
-//     this.levelGehaald = true;
-//     if (this.level == this.maxLevel) {
-//         this.afgelopen = true;
-//         this.gewonnen = true;
-//         this.actief = false;
-//     }
-// }
-
-// }
-// }
-// fun
-
-
-
-// tijdloper(){
-//   fill('black');
-//   text("tijd:" + this.tijdloper+ 100,240);
-//   if (frameCount % 60 == 0 && this.tijdloper >= 0) {
-//     this.tijdloper--
-//   }
-//   if (frameCount % 60 == 0 && this.tijdloper == 0) {
-//     this.eindScherm();
-//   }
-// }
-
-
-
-
-
-
-    
-// beginScherm() {
-//     push();
-//     fill(0,139, 139,.5);
-//     rect(0,0,canvas.width,canvas.height);
-//     textAlign(CENTER,TOP);
-//     fill(0);
-//     text("Welkom bij Redlight Greenlight.\n\nProbeer het leven van de wereld te redden door zoveel mogelijk druppels op te vangen voor ze de aarde bereiken.\nHoe beter je dat doet, hoe langer je de aarde en jezelf in leven houdt.\n\nGebruik de pijltjestoetsen voor de besturing. Klik om het spel te starten.",0,canvas.height / 4,canvas.width,canvas.height)
-//     pop();
-//   }
-
-//   tekenScorebord() {
-//     push();
-//     noFill();
-//     noStroke();
-//     textSize(16);
-//     var marge = 10;
-//     var hoogte = 50;
-//     rect(marge,canvas.height - marge - hoogte,100,hoogte);
-//     fill(255);
-//     text("Level "+this.level,marge,canvas.height - marge - hoogte,100,hoogte);   
-//     pop();
-//   }
-
-//   eindScherm() {
-//     fill(0, 139, 139,.5);
-//     rect(0,0,canvas.width,canvas.height);      
-//     var tekst="Dit was niet te voorkomen...\nJouw niveau: "+this.speler.niveau+"\n\nKlik voor een nieuw spel.";
-//     push();
-//     textAlign(CENTER,CENTER);
-//     fill(0);
-//     text(tekst,0,0,canvas.width,canvas.height);
-//     pop();
-//   }
-
-//   levelScherm() {
-//     push();
-//     fill(50,80,80);
-//     stroke(150,200,255);
-//     strokeWeight(3);
-//     textSize(32);
-//     text('Gefeliciteerd!\nJe hebt level '+this.level+' gehaald!\n\nDruk ENTER om naar level '+(this.level+1)+' te gaan.',0,0,canvas.width,canvas.height / 2);
-//     pop();
-//   }   
-
-//   // teken() {
-//   //   background(achtergrond);d
-//   //   if (!this.actief) {
-//   //       if (this.afgelopen) {
-//   //           this.eindScherm();
-//   //       }
-//   //       else {
-//   //           this.beginScherm();
-//   //       }
-//   //   }
-//   //   else {
-//   //       if (this.levelGehaald) {
-//   //           this.levelScherm();
-//   //       }
-//   //       else {
-//   //         this.speler1.teken;
-//   //         this.speler2.teken;
-//   //       }
-//   //           this.tekenScorebord();
-//   //       }
-//   //     }
-//   //   }
-//   // }
-//   teken() {
-//     background(achtergrond);
-//     if (!this.actief) {
-//       this.beginScherm();
-//       spel.actief = true;
-//     }
-//     else {
-//       if (this.afgelopen) {
-//         this.eindScherm();
-//       }
-//         if (this.levelGehaald) {
-//             this.levelScherm();
-//         }
-//       else {
-//         this.speler1.teken;
-//         this.speler2.teken;
-//       }
-//     }
-//     }
-//   }

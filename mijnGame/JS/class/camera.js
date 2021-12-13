@@ -7,6 +7,7 @@ class camera {
     this.kleur = 'black';
     this.draai = false;
     this.tijd = round(random(2,5));
+    this.timer = null;
 
 }
 
@@ -22,7 +23,6 @@ teken() {
         this.draai = !this.draai;
       }
       if (!this.draai) {
-
         fill(this.kleur);
         rect(1750,450,110,60);
         rect(1855,470,30,20);
@@ -31,9 +31,10 @@ teken() {
     } 
     else {
         fill(this.kleur);
+        this.timer = 1;
         rect(1750,450,110,60);
         rect(1728,470,30,20);
-        // this.timer = round(random(200,500));
+
         this.draai= true;
     }
   }

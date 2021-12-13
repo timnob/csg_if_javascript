@@ -1,20 +1,28 @@
 class auto{
     constructor(){
+      this.x = 10;
+      this.y = 200;
         this.breedte = 200;
         this.hoogte = 100;
         this.kleur = 'red';
         this.gewonnen = false;
-        this.rijSnelheid = 30;
+        this.rijSnelheid = 6;
         
     }
     wordJeGeraakt(motor) {
       if (motor.x >= this.x - motor.breedte && motor.x <= this.x + this.breedte && motor.y > this.y - motor.hoogte && motor.y < this.y + this.hoogte) {
-        this.geraakt=true;
+        this.x = 10;
+        this.y = 200;
+        spel.levelGehaald = false;
       }
     }
     wordJeGeraakt(spookrijder) {
       if (spookrijder.x >= this.x - spookrijder.breedte && spookrijder.x <= this.x + this.breedte && spookrijder.y > this.y - spookrijder.hoogte && spookrijder.y < this.y + this.hoogte) {
-        this.geraakt=true;
+        this.x = 10;
+        this.y = 200;
+        spookrijder.x = 2000;
+        spookrijder.y = random(0,windowHeight);
+        spookrijder.snelheid = (spookrijder.basisSnelheid + round(random(5,10)));
       }
     }
 
@@ -41,11 +49,6 @@ class auto{
         fill(this.kleur);
         image(autoplaatje,this.x,this.y,this.breedte,this.hoogte );
         pop();
-        if (this.geraakt){
-          this.x = 10;
-          this.y = 200;
-          this.geraakt = false;
-        }
       }
 
 }
