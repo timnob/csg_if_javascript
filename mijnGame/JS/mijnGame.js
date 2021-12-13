@@ -23,7 +23,6 @@ function setup(){
     stoplicht = new stoplicht();
     camera = new camera();
 
-    spookrijder = new spookrijder();
 
 
 }

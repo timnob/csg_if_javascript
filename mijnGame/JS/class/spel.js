@@ -12,7 +12,6 @@ class spel{
     this.speler1.gewonnen = null;
     this.computer.gewonnen = null;
     this.klok = null;
-    this.rijder = null;
 
   }
   
@@ -40,11 +39,14 @@ class spel{
   this.speler1.y = 650;
   this.speler2.x = 10;
   this.speler2.y = 200;
-  spookrijder.x = 2000;
-  spookrijder.y = random(this.start,windowHeight);
   this.levelGehaald = false;
+  for(var r = 0;r < this.level ;r++ ){
+  this.rijder.push(new spookrijder());
+  this.rijder[r].x = random(2000, 20000);
+  this.rijder[r].y = random(0,windowHeight);
 
   }
+}
     
 
 
@@ -61,10 +63,12 @@ class spel{
       this.computer.punt += 1;
 
     }
-    if(spookrijder.x <= -400){
-      spookrijder.x = 2000;
-      spookrijder.y = random(spookrijder.start,windowHeight);
+    for(var r = 0;r < this.rijder.length ;r++ ){
+    if(this.rijder[r].x <= -400){
+      this.rijder[r].x = 2000;
+      this.rijder[r].y = random(0,windowHeight);
     }
+  }
     if (this.speler1.x >= canvas.width) {
       this.levelGehaald = true;
       this.speler1.punt += 1;
@@ -84,8 +88,7 @@ class spel{
           this.speler1.gewonnen = false;
           this.actief = false;
       }
-      }
-      
+    }
         for (var r = 0;r < this.rijder.length;r++) {
           this.rijder[r].beweeg();
     }
@@ -103,7 +106,7 @@ class spel{
         }
         if(this.computer.punt == 2){
           this.afgelopen = true;
-          this.speler2.gewonnen = true;
+          this.computer.gewonnen = true;
           this.actief = false;
         }
         if(camera.draai == true && stoplicht.rood == true && (keyIsDown(65) || keyIsDown(68) || keyIsDown(87) || keyIsDown(83) )){
@@ -182,7 +185,7 @@ else {
 
 
   eindScherm() {
-    // var tekst = 'Camera';
+    var tekst = 'tekst';
     if (this.speler2.gewonnen) {
       var tekst = 'Auto';
     image(autoplaatje,canvas.width/2 -100,100,200,100 );
@@ -195,14 +198,15 @@ else {
 
     if (this.computer.gewonnen) {
       var tekst = 'Camera';
+      image(lettertoetsen, canvas.width/2 -100,100,200,100)
     }
-    tekst += ' heeft gewonnen!\n Motor score: ' +this.speler1.punt+' \n Auto score: ' +this.speler2.punt+ '\n Camera score: ' +this.computer.punt;
+  
 +  
     push();
     fill(0);
     stroke(100,75,50,.8);
     strokeWeight(3);
-    text('\n\nDruk op spatie voor nieuw spel.',0,0,canvas.width,canvas.height -400);
+    text(tekst += ' heeft gewonnen!\n Motor score: ' +this.speler1.punt+' \n Auto score: ' +this.speler2.punt+ '\n Camera score: ' +this.computer.punt+ '\n\nDruk op spatie voor nieuw spel.',0,0,canvas.width,canvas.height -400);
     pop();
   }    
   
@@ -231,16 +235,14 @@ else {
           this.speler2.beweeg();
           this.speler1.teken();
           this.speler1.beweeg();
-          spookrijder.teken();
-          spookrijder.beweeg();
           stoplicht.teken();
           camera.teken();
           this.tekenScorebord();
           this.tekenTimer();
-          if(this.actief && this.level >= 2 && this.level < 5) {
+         
             for (var r = 0;r < this.rijder.length;r++) {
               this.rijder[r].teken();
-        }
+        
       }
         }
     }
