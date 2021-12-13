@@ -13,9 +13,6 @@ class spel{
     this.computer.gewonnen = null;
     this.klok = null;
     this.rijder = null;
-    this.speler1.punt = 0;
-    this.speler2.punt = 0;
-    this.computer.punt = 0;
 
   }
   
@@ -28,6 +25,10 @@ class spel{
     this.computer.gewonnen = false;
     this.afgelopen = false;
     this.rijder = [];
+    this.speler1.punt = 0;
+    this.speler2.punt = 0;
+    this.computer.punt = 0;
+
     this.nieuwLevel();
   }
 
@@ -181,7 +182,7 @@ else {
 
 
   eindScherm() {
-    var tekst = 'Camera';
+    // var tekst = 'Camera';
     if (this.speler2.gewonnen) {
       var tekst = 'Auto';
     image(autoplaatje,canvas.width/2 -100,100,200,100 );
@@ -192,10 +193,10 @@ else {
       image(motorplaatje,canvas.width/2 -100,100,200,100 );
     }
 
-    // if (this.computer.gewonnen) {
-    //   var tekst = 'Camera';
-    // }
-   tekst += ' heeft gewonnen!\n Motor score: ' +this.speler1.punt+' \n Auto score: ' +this.speler2.punt+ '\n Camera score: ' +this.camera.punt;
+    if (this.computer.gewonnen) {
+      var tekst = 'Camera';
+    }
+    tekst += ' heeft gewonnen!\n Motor score: ' +this.speler1.punt+' \n Auto score: ' +this.speler2.punt+ '\n Camera score: ' +this.computer.punt;
 +  
     push();
     fill(0);
