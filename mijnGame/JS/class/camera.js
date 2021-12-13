@@ -26,15 +26,14 @@ teken() {
         fill(this.kleur);
         rect(1750,450,110,60);
         rect(1855,470,30,20);
-        // this.timer = roudrandom(2,5);
         this.draai = false;
     } 
     else {
-        fill(this.kleur);
-        rect(1750,450,110,60);
+        fill('black');        
         rect(1728,470,30,20);
-        // this.timer = round(random(200,500));
+        rect(1750,450,110,60);
         this.draai= true;
     }
+
   }
 }
